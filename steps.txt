@@ -24,3 +24,11 @@
 -   Design the dashboard layout
 -   Install query string (`npm i query-string`) to push routes to url
 -   Select Year using the query-string
+
+### Sanity studio setup
+-   Install the Sanity Cli (`npm install --global sanity@latest`)
+-   Login the Sanity through the terminal (`sanity login`)
+-   Create Sanity (`npm create sanity@latest`)
+-   Create schemas for university, degree and course
+-   import all schemas and export as a object 'schemas'
+-   Reference those three schemas to sanity through 'sanity.config.ts'
