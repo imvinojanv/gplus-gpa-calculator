@@ -4,7 +4,7 @@ const DashboardLayout = ({
     children: React.ReactNode;
 }) => {
     return (
-        <div>
+        <div className="h-screen">
             {children}
         </div>
     )

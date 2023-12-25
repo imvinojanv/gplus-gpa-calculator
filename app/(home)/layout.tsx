@@ -4,11 +4,16 @@ const HomeLayout = ({
     children: React.ReactNode;
 }) => {
     return (
-        <main className="h-full overflow-auto">
-            <div className="mx-auto max-w-screen-xl">
-                {children}
+        <>
+            <div className='main'>
+                <div className='gradient' />
             </div>
-        </main>
+            <main className="min-h-screen w-full overflow-auto hero-elements">
+                <div className="mx-auto max-w-screen-xl">
+                    {children}
+                </div>
+            </main>
+        </>
     )
 }
 
