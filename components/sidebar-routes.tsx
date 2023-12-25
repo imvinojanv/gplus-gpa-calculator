@@ -53,7 +53,7 @@ const SidebarRoutes = () => {
     }, [year, selectedYear, router, pathname])
 
     return (
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-3">
             {navRoutes.map((route) => (
                 <div
                     key={route.path}
