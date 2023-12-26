@@ -12,7 +12,7 @@ const DashboardLayout = ({
                 <Sidebar />
             </div>
             <main className="md:ml-60 h-full lg:py-[8px] lg:pr-[8px]">
-                <section className="h-full md:border-2 lg:rounded-xl bg-color-gray">
+                <section className="h-full md:border-2 lg:rounded-xl bg-color-gray no-scrollbar overflow-y-auto">
                     <Navbar />
                     {children}
                 </section>

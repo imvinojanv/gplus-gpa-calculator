@@ -21,6 +21,9 @@ export const getUniversities = async () => {
                 name,
                 "slug": slug.current,
                 "image": logo.asset->url,
+                degrees[]->{
+                    _id
+                }
             }`
         );
 
