@@ -25,8 +25,8 @@ const schema = {
     {
       name: 'logo',
       title: 'Logo',
+      description: "The university logo",
       type: 'image',
-      validation: (Rule: any) => Rule.required(),
       options: {
         hotspot: true,
       }

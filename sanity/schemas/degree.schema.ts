@@ -23,11 +23,11 @@ const schema = {
             description: 'The duration of the degree program, e.g. 3 or 4',
             type: 'number',
             initialValue: 3,
-            validation: (Rule: any) => Rule.required()
         },
         {
             name: 'courses',
             title: 'Courses',
+            description: 'The list of available courses for this degree program',
             type: 'array',
             of: [
                 { type: 'reference', to: [

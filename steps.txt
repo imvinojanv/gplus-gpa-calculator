@@ -32,3 +32,7 @@
 -   Create schemas for university, degree and course
 -   import all schemas and export as a object 'schemas'
 -   Reference those three schemas to sanity through 'sanity.config.ts'
+
+-   Store some sample datas on the sanity studio
+-   create an actions.ts file to write functions to fetch those data
+-   Create a buildQuery function to write the custom groq queries (sanity/utils.ts)
