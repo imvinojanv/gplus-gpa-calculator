@@ -1,0 +1,17 @@
+[
+    {
+        "degrees": [
+            {
+                "_id": "fd2179e9-813d-4cb4-9371-3ef239106bcf",
+                "name": "Software Engineering",
+                "degree": "B.Sc (Hons) in Software Engineering",
+                "duration": 4,
+                "courses": [
+                    {
+                        "_id": "5b344ea0-5e78-46cb-9a1a-3a617860469d"
+                    }
+                ]
+            }
+        ]
+    }
+]

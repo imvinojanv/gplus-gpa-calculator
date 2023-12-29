@@ -58,12 +58,12 @@ const invoices = [
 const CourseTable = () => {
     return (
         <Table>
-            <TableCaption>Your academic performance</TableCaption>
+            <TableCaption className="-mt-1 py-2 bg-slate-200/40">Your academic performance</TableCaption>
             <TableHeader>
                 <TableRow className="w-full">
-                    <TableHead className="w-[20%]">Invoice</TableHead>
-                    <TableHead colSpan={2}>Method</TableHead>
-                    <TableHead className="text-right w-[30%]">Amount</TableHead>
+                    <TableHead className="w-[20%]">Code</TableHead>
+                    <TableHead colSpan={2}>Course</TableHead>
+                    <TableHead className="text-center w-[30%]">Grade</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -77,8 +77,8 @@ const CourseTable = () => {
             </TableBody>
             <TableFooter>
                 <TableRow>
-                    <TableCell colSpan={3}>Total</TableCell>
-                    <TableCell className="text-right">$2,500.00</TableCell>
+                    <TableCell colSpan={3} className="text-[#666]">Semester's GPA</TableCell>
+                    <TableCell className="text-right font-bold">3.00</TableCell>
                 </TableRow>
             </TableFooter>
         </Table>
