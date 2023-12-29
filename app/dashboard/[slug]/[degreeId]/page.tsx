@@ -2,9 +2,9 @@ import { getCourses, getDegrees, getUniversities } from "@/sanity/actions";
 
 import CourseTable from "@/components/course-table";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabase";
+import { useToast } from "@/components/ui/use-toast";
 
-const DegreePage = async ({
+const DegreePage =  ({
   params
 }: {
   params: { slug: string; degreeId: string }
@@ -20,6 +20,15 @@ const DegreePage = async ({
   //   slug: 'uok'
   // });
   // console.log("DEGREES:", JSON.stringify(degrees));
+
+  // const { toast } = useToast();
+
+  // const onSubmit = () => {
+  //   toast({
+  //     variant: 'success',
+  //     title: "You are successfully create todo.",
+  //   });
+  // }
 
   return (
     <div className="overflow-y-auto">

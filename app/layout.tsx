@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 
 import './globals.css'
 import { cn } from '@/lib/utils'
+import { Toaster } from '@/components/ui/toaster'
 
 const redHatDisplay = Red_Hat_Display({ subsets: ['latin'] })
 
@@ -31,6 +32,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={cn("min-h-screen bg-white", redHatDisplay.className)}>
           {children}
+          <Toaster/>
         </body>
       </html>
     </ClerkProvider>

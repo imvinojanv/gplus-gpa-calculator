@@ -43,6 +43,13 @@
     @apply bg-[#F3F5F6];
   }
 
+  .border-gradient {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(to right, #8643DC 30%, #C850E6 78%, #FF59C1 110%) border-box;
+    border-radius: 0.375rem;
+    border: 1px solid transparent;
+  }
+
   .body-text {
     @apply text-[16px] leading-[22px] font-normal;
   }
