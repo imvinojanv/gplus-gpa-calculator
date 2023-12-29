@@ -2,24 +2,24 @@ import { getCourses, getDegrees, getUniversities } from "@/sanity/actions";
 
 import CourseTable from "@/components/course-table";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/lib/supabase";
 
 const DegreePage = async ({
   params
 }: {
   params: { slug: string; degreeId: string }
 }) => {
-
   // Fetch the course details
-  const courses = await getCourses({
-    id: params.degreeId
-  });
-  console.log("COURSES:",courses);
+  // const courses = await getCourses({
+  //   id: params.degreeId
+  // });
+  // console.log("COURSES:",courses);
 
-  const degrees = await getDegrees({
-    type: 'university',
-    slug: 'uok'
-  });
-  console.log("DEGREES:", JSON.stringify(degrees));
+  // const degrees = await getDegrees({
+  //   type: 'university',
+  //   slug: 'uok'
+  // });
+  // console.log("DEGREES:", JSON.stringify(degrees));
 
   return (
     <div className="overflow-y-auto">

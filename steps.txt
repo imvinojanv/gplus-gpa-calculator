@@ -44,3 +44,12 @@
 -   Add select from shadcn (`npx shadcn-ui@latest add select`)
 -   Create course-table and grade-select components for the data table
 -   Create routes for degree page (../dashboard/[slug]/[degreeId])
+-   Add toast from shadcn (`npx shadcn-ui@latest add toast`)
+
+### Supabase setup
+-   Install Supabase (`npm install @supabase/supabase-js @supabase/ssr`)
+-   Login to the supabase and create a new project
+-   Copy and paste the keys on .env
+-   Create the supabase server client in `/lib/supabase/index.ts`
+-   Create new tables (course, degree) for this project
+-   
