@@ -10,19 +10,22 @@ interface GetDegreesParams {
 }
 
 interface GetCoursesParams {
-    id: string
+    id?: string
 }
 
 export const getUniversities = async () => {
     try {
         const universities = await client.fetch(
-            groq`*[_type == "university" && slug.current == "uok"]{
+            groq`*[_type == "university"]{
                 _id,
                 name,
                 "slug": slug.current,
                 "image": logo.asset->url,
                 degrees[]->{
-                    _id
+                    name,
+                    courses[]->{
+                        name,
+                    }
                 }
             }`
         );
@@ -45,25 +48,24 @@ export const getDegrees = async (params: GetDegreesParams) => {
                     id,
                     slug
                 })}{
-                    degrees[]->{
+                    "degrees": degrees[]->{
                         _id,
                         name,
                         degree,
                         duration,
                         courses[]->{
-                            _id,
+                            name,
                         }
                     }
                 }`
             );
-            return degrees;
+            const res = degrees[0].degrees;
+            return res;
         } 
         else if (type === 'degree') {
             const degrees = await client.fetch(
                 groq`${buildQuery({
-                    type,
-                    id,
-                    slug
+                    type
                 })}{
                     _id,
                     name,
@@ -76,7 +78,6 @@ export const getDegrees = async (params: GetDegreesParams) => {
             );
             return degrees;
         }
-
     } catch (error) {
         console.log("[FETCH_DEGREES_ERROR]", error);
     }
@@ -86,23 +87,42 @@ export const getCourses = async (params: GetCoursesParams) => {
     const { id } = params;
 
     try {
-        const courses = await client.fetch(
-            groq`${buildQuery({
-                type: 'course',
-                id
-            })}{
-                _id,
-                name,
-                courseCode,
-                credits,
-                year,
-                semester,
-                courseType
-            }`
-        );
-
-        return courses;
-
+        if (id) {
+            const courses = await client.fetch(
+                groq`${buildQuery({
+                    type: 'degree',
+                    id
+                })}{
+                    "courses": courses[]->{
+                        _id,
+                        name,
+                        courseCode,
+                        credits,
+                        year,
+                        semester,
+                        courseType
+                    }
+                }`
+            );
+            const res = courses[0].courses
+            return res;
+        }
+        else {
+            const courses = await client.fetch(
+                groq`${buildQuery({
+                    type: 'course'
+                })}{
+                    _id,
+                    name,
+                    courseCode,
+                    credits,
+                    year,
+                    semester,
+                    courseType
+                }`
+            );
+            return courses;
+        }
     } catch (error) {
         console.log("[FETCH_COURSES_ERROR]", error);
     }

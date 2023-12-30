@@ -8,7 +8,7 @@ export const buildQuery = (params: BuildQueryParams) => {
     const { type, slug, id } = params;
 
     // Create some of the basic GROQ queries
-    const conditions = [`*[_type=="${type}"`];
+    const conditions = [`*[_type=="${type}" `];
 
     if (slug) {
         conditions.push(`slug.current == "${slug}"`);

@@ -1,5 +1,3 @@
-import { getCourses, getDegrees, getUniversities } from "@/sanity/actions";
-
 import CourseTable from "@/components/course-table";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -9,18 +7,6 @@ const DegreePage =  ({
 }: {
   params: { slug: string; degreeId: string }
 }) => {
-  // Fetch the course details
-  // const courses = await getCourses({
-  //   id: params.degreeId
-  // });
-  // console.log("COURSES:",courses);
-
-  // const degrees = await getDegrees({
-  //   type: 'university',
-  //   slug: 'uok'
-  // });
-  // console.log("DEGREES:", JSON.stringify(degrees));
-
   // const { toast } = useToast();
 
   // const onSubmit = () => {
