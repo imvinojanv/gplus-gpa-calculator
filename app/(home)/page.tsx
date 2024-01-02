@@ -7,6 +7,7 @@ import { getCourses, getDegrees, getUniversities } from "@/sanity/actions";
 import HomeNavbar from './_components/home-navbar';
 import Hero from './_components/hero';
 import UniversityDegreeList from './_components/university-degree-list';
+import HomeFooter from './_components/home-footer';
 
 const HomePage = async () => {
 
@@ -31,7 +32,10 @@ const HomePage = async () => {
         <HomeNavbar />
       </div> */}
       <Hero />
-      <UniversityDegreeList />
+      <div className='mx-auto max-w-screen-xl'>
+        <UniversityDegreeList />
+      </div>
+      <HomeFooter />
     </section>
   )
 }
