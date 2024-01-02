@@ -45,9 +45,12 @@
     top: -60px;
 }
 
+.hero {
+    margin-bottom: 120px;
+}
+
 .hero-heading {
-    margin-top: 120px;
-    margin-bottom: 100px;
+    margin-top: 150px;
 }
 
 .hero-heading h2 {
@@ -60,10 +63,11 @@
     font-size: 48px;
     padding: 0 60px;
     line-height: 130%;
+    letter-spacing: 0.4px;
 }
 
 .hero-heading h1 span {
-    background: linear-gradient(90deg, #8643DC 20%, #C850E6 60%, #FF59C1 100%);
+    background: linear-gradient(90deg, #8643DC 20%, #C850E6 60%, #FF59C1 110%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -74,6 +78,7 @@
 }
 
 .university-degree-list {
+    margin-top: 120px;
     margin-bottom: 150px;
 }
 
@@ -96,5 +101,10 @@
 
 .university-degree-list .degree:hover {
     border: 1px solid #D1D5DB;
-    background: radial-gradient(2774.37% 364.4% at 162.38% 212.6%, rgba(155, 255, 165, 0.20) 23.71%, rgba(174, 211, 255, 0.20) 47.38%, rgba(201, 212, 239, 0.20) 54.97%, rgba(215, 152, 225, 0.20) 65.75%, rgba(202, 207, 250, 0.20) 81.77%);
+    background: linear-gradient(278deg, rgba(155, 255, 165, 0.20) -7.45%, rgba(174, 211, 255, 0.20) 24.9%, rgba(201, 212, 239, 0.20) 46.31%, rgba(202, 207, 250, 0.20) 75.54%, rgba(215, 152, 225, 0.20) 89.68%)
+}
+
+.footer {
+    padding-top: 90px;
+    padding-bottom: 48px;
 }

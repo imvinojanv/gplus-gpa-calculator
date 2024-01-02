@@ -59,3 +59,5 @@
 -   Create the HomeNavbar component
 -   Design the Hero section
 -   Design the university-degree section
+-   Design the Footer section
+-   Add the separator from Shadcn (`npx shadcn-ui@latest add separator`)
