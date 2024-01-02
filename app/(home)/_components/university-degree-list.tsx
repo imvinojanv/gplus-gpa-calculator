@@ -76,14 +76,14 @@ const UniversityDegreeList = () => {
 
             <div className='w-full mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 lg:gap-12'>
                 <div>
-                    <div className='flex flex-col gap-4 h-[410px] overflow-y-auto no-scrollbar'>
+                    <div className='flex flex-row md:flex-col gap-4 md:h-[410px] overflow-auto no-scrollbar'>
                         {uni.map((university) => (
                             <div 
                                 key={university._id} 
-                                className='w-full group py-6 pl-6 pr-4 bg-white/20 rounded-lg hover:bg-white/50 flex flex-row justify-between items-center transition-all university'
+                                className='w-full group py-2 pl-3 pr-4 md:py-6 md:pl-6 md:pr-4 bg-white/20 rounded-lg hover:bg-white/50 cursor-pointer flex flex-row justify-between items-center transition-all university'
                             >
-                                <div className='flex flex-row justify-start items-center gap-3'>
-                                    <div className='border-2 rounded-full'>
+                                <div className='flex flex-row justify-start items-center gap-1 md:gap-3'>
+                                    <div className='border-2 rounded-full max-md:w-8'>
                                         <Image 
                                             src={university.image}
                                             alt={university.slug}
@@ -91,14 +91,18 @@ const UniversityDegreeList = () => {
                                             height={40}
                                         />
                                     </div>
-                                    <h3 className='text-color-gray group-hover:text-color-black text-base font-medium line-clamp-1 w-[90%]'>{university.name}</h3>
+                                    <h3 className='text-color-gray group-hover:text-color-black text-sm md:text-base font-medium md:line-clamp-1 md:w-[90%] max-md:hidden'>{university.name}</h3>
+                                    <h3 className='text-color-gray group-hover:text-color-black text-sm tracking-[0.18px] font-medium uppercase md:hidden'>{university.slug}</h3>
                                 </div>
-                                <ArrowRight className='h-4 w-4 text-[#9CA3AF] group-hover:text-color-black' />
+                                <ArrowRight className='h-4 w-4 text-[#9CA3AF] group-hover:text-color-black max-md:hidden' />
                             </div>
                         ))}
                     </div>
                     {uni.length > 4 && (
-                        <p className='text-sm text-end text-slate-500 mt-1 mr-1'>Scroll to more...</p>
+                        <>
+                            <p className='text-sm text-end text-slate-500 mt-1 mr-1 max-md:hidden'>Scroll to more...</p>
+                            <p className='text-sm text-end text-slate-500 mt-2 mr-1 md:hidden'>Swipe to more...</p>
+                        </>
                     )}
                 </div>
 
@@ -107,7 +111,7 @@ const UniversityDegreeList = () => {
                         {degree.map((degree) => (
                             <div 
                                 key={degree._id} 
-                                className='w-full group px-6 py-5 rounded-lg flex flex-row justify-between items-start transition-all degree'
+                                className='w-full group px-6 py-5 rounded-lg flex flex-row justify-between cursor-pointer items-end md:items-start transition-all degree'
                             >
                                 <div className='flex flex-col items-start gap-1'>
                                     <h3 className='text-color-black text-base font-medium line-clamp-1'>{degree.name}</h3>
@@ -120,7 +124,7 @@ const UniversityDegreeList = () => {
                         ))}
                     </div>
                     {degree.length > 4 && (
-                        <p className='text-sm text-end text-slate-500 mt-1 mr-3'>Scroll to more...</p>
+                        <p className='text-sm text-end text-slate-500 mt-2 md:mt-1 mr-3'>Scroll to more...</p>
                     )}
                 </div>
             </div>

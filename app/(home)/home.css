@@ -1,3 +1,8 @@
+.container-padding {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
 .bg-grid {
     width: 100vw;
     min-height: 100vh;
@@ -43,10 +48,6 @@
     width: 100%;
     height: 100%;
     top: -60px;
-}
-
-.hero {
-    margin-bottom: 120px;
 }
 
 .hero-heading {
@@ -107,4 +108,77 @@
 .footer {
     padding-top: 90px;
     padding-bottom: 48px;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+    .bg-elements {
+        display: none;
+    }
+
+    .hero-heading {
+        margin-top: 120px;
+    }
+    
+    .hero-heading h2 {
+        font-size: 18px;
+    }
+
+    .hero-heading h1 {
+        margin-top: 12px;
+        margin-bottom: 14px;
+        font-size: 36px;
+        padding: 0 16px;
+    }
+
+    .hero-heading h3 {
+        font-size: 16px;
+    }
+
+    .university-degree-list {
+        margin-bottom: 90px;
+    }
+
+    .university-degree-list h2 {
+        font-size: 18px;
+    }
+
+    .footer {
+        padding-bottom: 36px;
+    }
+}
+
+/* Tablet Responsive */
+@media (min-width: 768px) and (max-width: 992px) {
+    .container-padding {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .hero-heading {
+        margin-top: 130px;
+    }
+    
+    .hero-heading h2 {
+        font-size: 20px;
+    }
+
+    .hero-heading h1 {
+        margin-top: 14px;
+        margin-bottom: 16px;
+        font-size: 42px;
+        padding: 0 48px;
+    }
+
+    .hero-heading h3 {
+        font-size: 16px;
+    }
+}
+
+/* Small Laptop Responsive */
+@media (min-width: 992px) and (max-width: 1280px) {
+    .container-padding {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
 }

@@ -9,7 +9,7 @@ const HomeNavbar = async () => {
     const isSignedIn = await currentUser();
 
     return (
-        <nav className="px-4 py-6 bg-transparent flex items-center justify-between">
+        <nav className="container-padding py-6 bg-transparent flex items-center justify-between">
             <Image
                 src='/logo.svg'
                 alt="logo"
