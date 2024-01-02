@@ -52,4 +52,8 @@
 -   Copy and paste the keys on .env
 -   Create the supabase server client in `/lib/supabase/index.ts`
 -   Create new tables (course, degree) for this project
--   
+-   Successfully working the CRUD functions through supabase client
+
+### Landing Page Design
+-   Set layout background for the landing page
+-   Create the HomeNavbar component

@@ -2,19 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .text-gradient {
-    background: linear-gradient(90deg, #8643DC 42.86%, #C850E6 67.74%, #FF59C1 84.11%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-  }
-
-  .bg-gradient {
-    background: linear-gradient(90deg, #8643DC 0%, #C850E6 76.46%, #FF59C1 100%);
-  }
-
+@layer base {
   .heading-hero {
     @apply text-[64px] leading-[83.2px] font-black text-center;
   }
@@ -43,19 +31,16 @@
     @apply bg-[#F3F5F6];
   }
 
-  .border-gradient {
-    background: linear-gradient(white, white) padding-box,
-                linear-gradient(to right, #8643DC 30%, #C850E6 78%, #FF59C1 110%) border-box;
-    border-radius: 0.375rem;
-    border: 1px solid transparent;
-  }
-
   .body-text {
     @apply text-[16px] leading-[22px] font-normal;
   }
 
   .flex-between {
     @apply flex justify-between items-center;
+  }
+
+  .bgRed {
+    @apply bg-red-600;
   }
 
   .flex-center {
@@ -75,27 +60,29 @@
   }
 }
 
-.main {
+.bg-grid {
   width: 100vw;
   min-height: 100vh;
   position: fixed;
   display: flex;
   justify-content: center;
-  padding: 120px 24px 160px 24px;
+  /* padding: 120px 24px 160px 24px; */
   pointer-events: none;
+  z-index: -99;
 }
 
-/* .main:before {
-  background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #fafafa 100%);
-  position: absolute;
+.bg-grid::before {
   content: "";
-  z-index: 1;
+  background-image: url("/bg-grid.svg");
+  position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
-} */
+  opacity: 0.2;
+  filter: invert(1);
+}
 
-.main:after {
+/* .main:after {
   content: "";
   background-image: url("/bg-elements.svg");
   background-position: center;
@@ -105,11 +92,17 @@
   width: 100%;
   height: 100%;
   top: 0;
+} */
+
+@media screen and (max-width: 640px) {
+  .main {
+    padding: 0;
+  }
 }
 
 .gradient {
   height: fit-content;
-  z-index: 3;
+  z-index: 2;
   width: 100%;
   max-width: 640px;
   background-image: radial-gradient(
@@ -143,6 +136,13 @@
 
 .bg-gradient {
   background: linear-gradient(90deg, #8643DC 0%, #C850E6 76.46%, #FF59C1 100%);
+}
+
+.border-gradient {
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #8643DC 30%, #C850E6 78%, #FF59C1 110%) border-box;
+  border-radius: 05rem;
+  border: 1px solid transparent;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

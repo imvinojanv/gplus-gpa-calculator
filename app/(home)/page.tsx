@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { getCourses, getDegrees, getUniversities } from "@/sanity/actions";
 
-import { Button } from '@/components/ui/button'
+import HomeNavbar from './_components/home-navbar';
 
 const HomePage = async () => {
 
@@ -23,12 +23,12 @@ const HomePage = async () => {
   // console.log("COURSES:", courses);
 
   return (
-    <main>
-      Home Page
-      <Link href='/sign-in'>
-        <Button variant='destructive'>Sign In</Button>
-      </Link>
-    </main>
+    <section className='h-full w-full'>
+      <div className='mx-auto max-w-screen-xl'>
+        <HomeNavbar />
+      </div>
+      Home
+    </section>
   )
 }
 

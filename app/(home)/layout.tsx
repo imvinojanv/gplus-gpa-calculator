@@ -1,19 +1,17 @@
+import { Button } from "@/components/ui/button";
+
 const HomeLayout = ({
     children
 }: {
     children: React.ReactNode;
 }) => {
     return (
-        <>
-            <div className='main'>
-                <div className='gradient' />
+        <main className="h-full w-full">
+            <div className='bg-grid'/>
+            <div className="z-10">
+                {children} 
             </div>
-            <main className="min-h-screen w-full overflow-auto hero-elements">
-                <div className="mx-auto max-w-screen-xl">
-                    {children}
-                </div>
-            </main>
-        </>
+        </main>
     )
 }
 
