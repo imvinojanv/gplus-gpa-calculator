@@ -57,3 +57,4 @@
 ### Landing Page Design
 -   Set layout background for the landing page
 -   Create the HomeNavbar component
+-   Design the Hero section

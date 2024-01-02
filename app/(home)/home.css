@@ -1,0 +1,74 @@
+.bg-grid {
+    width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    /* padding: 120px 24px 160px 24px; */
+    pointer-events: none;
+    z-index: -99;
+}
+
+.bg-grid::before {
+    content: "";
+    background-image: url("/bg-grid.svg");
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    opacity: 0.2;
+    filter: invert(1);
+}
+
+.bg-elements {
+    width: 100%;
+    min-height: 100%;
+    /* max-width: 900px;
+    margin-left: 10%; */
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: -9;
+}
+
+.bg-elements::before {
+    content: "";
+    background-image: url("/bg-elements.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -100px;
+}
+
+.hero-heading {
+    margin-top: 120px;
+    margin-bottom: 100px;
+}
+
+.hero-heading h2 {
+    font-size: 22px;
+}
+
+.hero-heading h1 {
+    margin-top: 16px;
+    margin-bottom: 18px;
+    font-size: 48px;
+    padding: 0 60px;
+    line-height: 130%;
+}
+
+.hero-heading h1 span {
+    background: linear-gradient(90deg, #8643DC 20%, #C850E6 60%, #FF59C1 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-heading h3 {
+    font-size: 18px;
+}

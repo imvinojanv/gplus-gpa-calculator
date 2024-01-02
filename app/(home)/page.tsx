@@ -1,9 +1,12 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import './home.css';
 
+import Image from 'next/image';
+import Link from 'next/link';
 import { getCourses, getDegrees, getUniversities } from "@/sanity/actions";
 
 import HomeNavbar from './_components/home-navbar';
+import Hero from './_components/hero';
+import UniversityDegreeList from './_components/university-degree-list';
 
 const HomePage = async () => {
 
@@ -24,10 +27,11 @@ const HomePage = async () => {
 
   return (
     <section className='h-full w-full'>
-      <div className='mx-auto max-w-screen-xl'>
+      {/* <div className='mx-auto max-w-screen-xl'>
         <HomeNavbar />
-      </div>
-      Home
+      </div> */}
+      <Hero />
+      <UniversityDegreeList />
     </section>
   )
 }
