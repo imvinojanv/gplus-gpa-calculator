@@ -10,12 +10,14 @@ const HomeNavbar = async () => {
 
     return (
         <nav className="container-padding py-8 bg-transparent flex items-center justify-between">
-            <Image
-                src='/logo.svg'
-                alt="logo"
-                width={100}
-                height={100}
-            />
+            <Link href='/'>
+                <Image
+                    src='/logo.svg'
+                    alt="logo"
+                    width={100}
+                    height={100}
+                />
+            </Link>
 
             {isSignedIn ? (
                 <div className="rounded-full" style={{ border: "3px solid #fff" }}>

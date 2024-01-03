@@ -63,3 +63,4 @@
 -   Add the separator from Shadcn (`npx shadcn-ui@latest add separator`)
 -   Mobile responsiveness
 -   Add background gradients
+-   Fetch the data from sanity and make the actual routes to the dashboard

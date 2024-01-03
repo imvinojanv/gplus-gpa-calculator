@@ -125,6 +125,10 @@ nav .signup {
     border: 1.5px solid #9CA3AF;
 }
 
+.university-degree-list .university-active{
+    border: 1.5px solid #25202F;
+}
+
 .university-degree-list .degree {
     border: 1px solid #d1d5db00;
     background: linear-gradient(90deg, rgba(255, 255, 255, 0.40) 0%, rgba(243, 245, 246, 0.40) 41.56%);

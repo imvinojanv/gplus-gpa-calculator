@@ -21,12 +21,12 @@ export const getUniversities = async () => {
                 name,
                 "slug": slug.current,
                 "image": logo.asset->url,
-                degrees[]->{
-                    name,
-                    courses[]->{
-                        name,
-                    }
-                }
+                // degrees[]->{
+                //     name,
+                //     courses[]->{
+                //         name,
+                //     }
+                // }
             }`
         );
 
@@ -38,14 +38,13 @@ export const getUniversities = async () => {
 }
 
 export const getDegrees = async (params: GetDegreesParams) => {
-    const { slug, id, type } = params;
+    const { slug, type } = params;
 
     try {
-        if (type === 'university') {
+        if (type === 'university' && slug?.length !== undefined) {
             const degrees = await client.fetch(
                 groq`${buildQuery({
                     type,
-                    id,
                     slug
                 })}{
                     "degrees": degrees[]->{
@@ -53,9 +52,9 @@ export const getDegrees = async (params: GetDegreesParams) => {
                         name,
                         degree,
                         duration,
-                        courses[]->{
-                            name,
-                        }
+                        // courses[]->{
+                        //     name,
+                        // }
                     }
                 }`
             );
@@ -77,6 +76,8 @@ export const getDegrees = async (params: GetDegreesParams) => {
                 }`
             );
             return degrees;
+        } else {
+            return null;
         }
     } catch (error) {
         console.log("[FETCH_DEGREES_ERROR]", error);
