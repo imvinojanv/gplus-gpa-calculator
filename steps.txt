@@ -64,3 +64,5 @@
 -   Mobile responsiveness
 -   Add background gradients
 -   Fetch the data from sanity and make the actual routes to the dashboard
+
+-   Fetch the course data by applying finters from sanity

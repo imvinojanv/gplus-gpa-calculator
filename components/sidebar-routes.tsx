@@ -14,24 +14,24 @@ import { Badge } from "@/components/ui/badge"
 const navRoutes = [
     {
         label: "Year 1",
-        path: "1st",
+        path: "1",
     },
     {
         label: "Year 2",
-        path: "2nd",
+        path: "2",
     },
     {
         label: "Year 3",
-        path: "3rd",
+        path: "3",
     },
     {
         label: "Year 4",
-        path: "4th",
+        path: "4",
     }
 ]
 
 const SidebarRoutes = () => {
-    const [year, setYear] = useState('1st')
+    const [year, setYear] = useState('1')
 
     const pathname = usePathname();
     const router = useRouter();
@@ -50,7 +50,8 @@ const SidebarRoutes = () => {
         }, { skipNull: true, skipEmptyString: true });
     
         router.push(url);
-    }, [year, selectedYear, router, pathname])
+        // router.refresh();
+    }, [year, currentTitle, router, pathname])
 
     return (
         <div className="flex flex-col space-y-3">

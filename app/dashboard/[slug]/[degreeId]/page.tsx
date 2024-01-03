@@ -1,14 +1,31 @@
+import { getCourses } from "@/sanity/actions";
+
+import { cn } from "@/lib/utils";
 import CourseTable from "@/components/course-table";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
-const DegreePage =  ({
-  params
+const DegreePage = async ({
+  params,
+  searchParams
 }: {
-  params: { slug: string; degreeId: string }
+  params: { slug: string; degreeId: string },
+  searchParams: { year: string };
 }) => {
-  // const { toast } = useToast();
+  const { slug, degreeId } = params;
+  const { year: currentYear } = searchParams;
 
+  const courses = await getCourses({
+    id: degreeId,
+    year: parseInt(currentYear),
+    semester: 1
+  })
+  const hasCoursesForSemesterTwo = courses.some((course: any) => course.semester === 1);
+  
+  console.log("YEAR:", currentYear);
+  console.log("COURSES:", courses);
+
+  // const { toast } = useToast();
   // const onSubmit = () => {
   //   toast({
   //     variant: 'success',
@@ -30,7 +47,7 @@ const DegreePage =  ({
             </div>
           </div>
 
-          <div className="mt-6 mb-4 md:mb-6">
+          <div className={cn("mt-6 mb-4 md:mb-6", !hasCoursesForSemesterTwo && "hidden")}>
             <h2 className="text-color-violet text-lg font-medium">Semester 2</h2>
             <div className="mt-2 border border-slate-400/50 rounded-lg bg-white/50">
               <CourseTable />

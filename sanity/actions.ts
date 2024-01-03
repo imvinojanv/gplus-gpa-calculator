@@ -10,7 +10,9 @@ interface GetDegreesParams {
 }
 
 interface GetCoursesParams {
-    id?: string
+    id: string,
+    year?: number,
+    semester?: number
 }
 
 export const getUniversities = async () => {
@@ -85,34 +87,15 @@ export const getDegrees = async (params: GetDegreesParams) => {
 }
 
 export const getCourses = async (params: GetCoursesParams) => {
-    const { id } = params;
+    const { id, year, semester } = params;
 
     try {
-        if (id) {
-            const courses = await client.fetch(
-                groq`${buildQuery({
-                    type: 'degree',
-                    id
-                })}{
-                    "courses": courses[]->{
-                        _id,
-                        name,
-                        courseCode,
-                        credits,
-                        year,
-                        semester,
-                        courseType
-                    }
-                }`
-            );
-            const res = courses[0].courses
-            return res;
-        }
-        else {
-            const courses = await client.fetch(
-                groq`${buildQuery({
-                    type: 'course'
-                })}{
+        const courses = await client.fetch(
+            groq`${buildQuery({
+                type: 'degree',
+                id
+            })}{
+                "courses": courses[] | order(year, semester)->{
                     _id,
                     name,
                     courseCode,
@@ -120,10 +103,20 @@ export const getCourses = async (params: GetCoursesParams) => {
                     year,
                     semester,
                     courseType
-                }`
-            );
-            return courses;
+                }
+            }`
+        );
+        
+        if (year || semester) {
+            const filteredRes = courses[0].courses.filter((course: any) => {
+                return (!year || course.year === year) && (!semester || course.semester === semester);
+            });
+            return filteredRes;
         }
+
+        const res = courses[0].courses;
+        return res;
+
     } catch (error) {
         console.log("[FETCH_COURSES_ERROR]", error);
     }
