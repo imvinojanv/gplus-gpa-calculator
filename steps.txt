@@ -62,3 +62,4 @@
 -   Design the Footer section
 -   Add the separator from Shadcn (`npx shadcn-ui@latest add separator`)
 -   Mobile responsiveness
+-   Add background gradients

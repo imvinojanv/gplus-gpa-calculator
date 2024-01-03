@@ -17,6 +17,10 @@ const Hero = () => {
                 </h1>
                 <h3 className="text-color-gray text-center font-normal tracking-[0.18px]">Elevate Your Grades - Elevate Your Future!</h3>
             </div>
+
+            {/* background gradient */}
+            <div className="bg-gradient-1"/>
+            <div className="bg-gradient-2"/>
         </div>
     )
 }
