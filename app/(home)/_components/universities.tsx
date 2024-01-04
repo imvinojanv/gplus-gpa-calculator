@@ -41,6 +41,7 @@ const Universities = ({
         }, { skipNull: true, skipEmptyString: true });
     
         router.push(url, { scroll: false });
+        router.refresh();
     }
 
     return (
@@ -91,15 +92,15 @@ const Universities = ({
                         />
                     </div>
                 ))}
-                {!universities && (
+                {universities.length === 0 && (
                     <div className="w-full h-full flex flex-col justify-center items-center">
                         <Image
                             src='/no-results.png'
                             alt="cap"
-                            width={100}
-                            height={100}
+                            width={140}
+                            height={140}
                         />
-                        <p className="text-sm text-center text-gray-500">Universities not found!</p>
+                        <p className="text-base text-center text-gray-500">Universities not found!</p>
                     </div>
                 )}
             </div>

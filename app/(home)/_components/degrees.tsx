@@ -11,11 +11,13 @@ interface DegreesProps {
         duration: number;
     }[];
     slug: string;
+    hasUniversities: boolean;
 }
 
 const Degrees = ({
     degrees,
-    slug
+    slug,
+    hasUniversities
 }: DegreesProps) => {
     return (
         <div>
@@ -23,7 +25,8 @@ const Degrees = ({
                 className={cn(
                     'flex flex-col gap-2 h-[310px] border bg-white/30 rounded-xl p-2 overflow-y-auto no-scrollbar', 
                     (degrees && degrees.length > 3) && "h-[410px]", 
-                    !degrees && "border-none outline-dashed outline-1 outline-slate-400 outline-offset-1"
+                    !degrees && "border-none outline-dashed outline-1 outline-slate-400 outline-offset-1",
+                    !hasUniversities && "hidden"
                 )}
             >
                 {degrees && degrees.map((degree: any) => (

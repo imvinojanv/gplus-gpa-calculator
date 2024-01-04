@@ -30,8 +30,6 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
   //   id: 'fd2179e9-813d-4cb4-9371-3ef239106bcf',
   // })
   // console.log("COURSES:", courses);
-  
-  // console.log("PARAMS:", searchParams.university);
 
   return (
     <section className='h-full w-full'>
@@ -45,7 +43,11 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
 
             <div className='w-full mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 lg:gap-12'>
                 <Universities universities={universities} />
-                <Degrees degrees={degrees} slug={searchParams.university} />
+                <Degrees 
+                  degrees={degrees} 
+                  slug={searchParams.university} 
+                  hasUniversities={universities.length !== 0} 
+                />
             </div>
         </div>
       </div>

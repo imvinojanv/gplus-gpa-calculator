@@ -2,6 +2,7 @@ import Image from "next/image";
 import { UserButton, currentUser } from "@clerk/nextjs";
 
 import SidebarRoutes from "@/components/sidebar-routes";
+import Link from "next/link";
 
 const Sidebar = async () => {
     const user = await currentUser();
@@ -10,12 +11,14 @@ const Sidebar = async () => {
         <div className="h-full flex flex-col overflow-y-auto bg-white justify-between">
             <div>
                 <div className="px-6 py-8">
-                    <Image
-                        height={90}
-                        width={90}
-                        alt="logo"
-                        src="/logo.svg"
-                    />
+                    <Link href="/">
+                        <Image
+                            height={90}
+                            width={90}
+                            alt="logo"
+                            src="/logo.svg"
+                        />
+                    </Link>
                 </div>
                 <div className="w-full px-3 mt-10">
                     <SidebarRoutes />
