@@ -18,6 +18,12 @@ const schema = {
             validation: (Rule: any) => Rule.required()
         },
         {
+            name: 'faculty',
+            title: 'Faculty',
+            description: "e.g. 'Faculty of Engineering'",
+            type: 'string',
+        },
+        {
             name: 'duration',
             title: 'Duration (Years)',
             description: 'The duration of the degree program, e.g. 3 or 4',
@@ -35,7 +41,13 @@ const schema = {
                 ]}
             ],
         },
-    ]
+    ],
+    preview: {
+        select: {
+            title: 'name',
+            subtitle: 'degree',
+        }
+    }
 }
 
 export default schema;

@@ -10,9 +10,9 @@ interface GetDegreesParams {
 }
 
 interface GetCoursesParams {
-    id: string,
+    degreeId: string,
     year?: number,
-    semester?: number
+    semester?: number,
 }
 
 export const getUniversities = async () => {
@@ -87,37 +87,64 @@ export const getDegrees = async (params: GetDegreesParams) => {
 }
 
 export const getCourses = async (params: GetCoursesParams) => {
-    const { id, year, semester } = params;
+    const { degreeId: id, year, semester } = params;
 
     try {
         const courses = await client.fetch(
             groq`${buildQuery({
-                type: 'degree',
-                id
+                type: 'course',
+                id,
+                year,
+                semester
             })}{
-                "courses": courses[] | order(year, semester)->{
-                    _id,
-                    name,
-                    courseCode,
-                    credits,
-                    year,
-                    semester,
-                    courseType
-                }
+                _id,
+                name,
+                courseCode,
+                credits,
+                year,
+                semester,
+                courseType
             }`
         );
-        
-        if (year || semester) {
-            const filteredRes = courses[0].courses.filter((course: any) => {
-                return (!year || course.year === year) && (!semester || course.semester === semester);
-            });
-            return filteredRes;
-        }
-
-        const res = courses[0].courses;
-        return res;
+        return courses;
 
     } catch (error) {
         console.log("[FETCH_COURSES_ERROR]", error);
     }
 }
+
+// export const getCourses = async (params: GetCoursesParams) => {
+//     const { id, year, semester } = params;
+
+//     try {
+//         const courses = await client.fetch(
+//             groq`${buildQuery({
+//                 type: 'degree',
+//                 id
+//             })}{
+//                 "courses": courses[] | order(year, semester)->{
+//                     _id,
+//                     name,
+//                     courseCode,
+//                     credits,
+//                     year,
+//                     semester,
+//                     courseType
+//                 }
+//             }`
+//         );
+        
+//         if (year || semester) {
+//             const filteredRes = courses[0].courses.filter((course: any) => {
+//                 return (!year || course.year === year) && (!semester || course.semester === semester);
+//             });
+//             return filteredRes;
+//         }
+
+//         const res = courses[0].courses;
+//         return res;
+
+//     } catch (error) {
+//         console.log("[FETCH_COURSES_ERROR]", error);
+//     }
+// }

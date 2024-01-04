@@ -1,4 +1,4 @@
-import { getCourses } from "@/sanity/actions";
+import { getCourses, getDegrees } from "@/sanity/actions";
 
 import { cn } from "@/lib/utils";
 import CourseTable from "@/components/course-table";
@@ -10,20 +10,28 @@ const DegreePage = async ({
   searchParams
 }: {
   params: { slug: string; degreeId: string },
-  searchParams: { year: string };
+  searchParams: { year: number };
 }) => {
   const { slug, degreeId } = params;
   const { year: currentYear } = searchParams;
 
-  const courses = await getCourses({
-    id: degreeId,
-    year: parseInt(currentYear),
+  // const hasCoursesForSemesterTwo = courses.some((course: any) => course.semester === 1);
+
+  // Fetch the courses for Semester 1
+  const coursesForSemiOne = await getCourses({
+    degreeId: params.degreeId,
+    year: currentYear,
     semester: 1
   })
-  const hasCoursesForSemesterTwo = courses.some((course: any) => course.semester === 1);
-  
-  console.log("YEAR:", currentYear);
-  console.log("COURSES:", courses);
+
+  // Fetch the courses for Semester 2
+  const coursesForSemiTwo = await getCourses({
+    degreeId: params.degreeId,
+    year: currentYear,
+    semester: 2
+  })
+
+  console.log("DATA:", coursesForSemiOne, coursesForSemiTwo);
 
   // const { toast } = useToast();
   // const onSubmit = () => {
@@ -38,6 +46,9 @@ const DegreePage = async ({
       <h2 className="text-2xl md:text-3xl font-bold text-color-black py-6 md:py-8 px-4 md:px-10">
         Overall GPA : <span className="font-black text-gradient">3.79</span>
       </h2>
+      { coursesForSemiOne && coursesForSemiOne.map((course: any) => (
+        <p key={course._id}>{course.name}</p>
+      ))}
       <div className="px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="mt-6 mb-4 md:mb-6">
@@ -47,7 +58,7 @@ const DegreePage = async ({
             </div>
           </div>
 
-          <div className={cn("mt-6 mb-4 md:mb-6", !hasCoursesForSemesterTwo && "hidden")}>
+          <div className={cn("mt-6 mb-4 md:mb-6")}>
             <h2 className="text-color-violet text-lg font-medium">Semester 2</h2>
             <div className="mt-2 border border-slate-400/50 rounded-lg bg-white/50">
               <CourseTable />

@@ -8,7 +8,7 @@ const schema = {
             title: 'Course Name',
             description: "e.g. 'Data Structure & Algorithm'",
             type: 'string',
-            validation: (Rule:any) => Rule.required(),
+            validation: (Rule: any) => Rule.required(),
         },
         {
             name: 'courseCode',
@@ -20,7 +20,7 @@ const schema = {
             name: 'credits',
             title: 'Credits',
             type: 'number',
-            validation: (Rule:any) => Rule.required(),
+            validation: (Rule: any) => Rule.required(),
         },
         {
             name: 'year',
@@ -46,7 +46,19 @@ const schema = {
                 list: ['compulsory', 'optional'],
             },
         },
-    ]
+        {
+            name: 'degree',
+            title: 'Degrees',
+            type: 'reference',
+            to: [{ type: 'degree' }]
+        },
+    ],
+    preview: {
+        select: {
+            title: 'name',
+            subtitle: 'courseCode',
+        }
+    }
 }
 
 export default schema;
