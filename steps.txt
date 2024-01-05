@@ -65,4 +65,11 @@
 -   Add background gradients
 -   Fetch the data from sanity and make the actual routes to the dashboard
 
--   Fetch the course data by applying finters from sanity
+-   Fetch the course data by applying filters from sanity
+-   Passing the course data to the CourseTable component
+-   Passing the individual course data to GradeSelect component
+-   Write the async function to store and update the data to supabase (sample function within the GradeSelect component)
+-   Create actions folder for the db action
+-   Create checkAvailabile action function to check the courseId or degreeId available on the database
+-   Create the updateCourse action function to intert and update the data to Supabase
+-   Successfully update the data with toast notification
