@@ -7,55 +7,32 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
-import GradeSelect from "./grade-select"
+} from "@/components/ui/table";
+import GradeSelect from "./grade-select";
+import { auth } from "@clerk/nextjs";
 
-const invoices = [
-    {
-        invoice: "INV001",
-        paymentStatus: "Paid",
-        totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
-    },
-    {
-        invoice: "INV002",
-        paymentStatus: "Pending",
-        totalAmount: "$150.00",
-        paymentMethod: "PayPal",
-    },
-    {
-        invoice: "INV003",
-        paymentStatus: "Unpaid",
-        totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        invoice: "INV004",
-        paymentStatus: "Paid",
-        totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
-    },
-    {
-        invoice: "INV005",
-        paymentStatus: "Paid",
-        totalAmount: "$550.00",
-        paymentMethod: "PayPal",
-    },
-    {
-        invoice: "INV006",
-        paymentStatus: "Pending",
-        totalAmount: "$200.00",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        invoice: "INV007",
-        paymentStatus: "Unpaid",
-        totalAmount: "$300.00",
-        paymentMethod: "Credit Card",
-    },
-]
+interface CourseTableProps {
+    courses: {
+        _id: string;
+        name: string;
+        courseCode: string;
+        credits: number;
+        year: number;
+        semester: number;
+        courseType: string;
+    }[];
+    degreeId: string;
+    slug: string;
+}
 
-const CourseTable = () => {
+const CourseTable = ({
+    courses,
+    degreeId,
+    slug,
+}: CourseTableProps) => {
+    const { userId } = auth();
+    console.log(degreeId);
+    
     return (
         <Table>
             <TableCaption className="-mt-1 py-2 bg-slate-200/40">Your academic performance</TableCaption>
@@ -67,11 +44,22 @@ const CourseTable = () => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {invoices.map((invoice) => (
-                    <TableRow key={invoice.invoice}>
-                        <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                        <TableCell colSpan={2}>{invoice.paymentMethod}</TableCell>
-                        <TableCell className="text-right"><GradeSelect/></TableCell>
+                {courses.map((course) => (
+                    <TableRow key={course._id}>
+                        <TableCell className="font-medium">{course.courseCode}</TableCell>
+                        <TableCell colSpan={2}>{course.name}</TableCell>
+                        <TableCell className="text-right">
+                            <GradeSelect
+                                userId={userId}
+                                degreeId={degreeId}
+                                slug={slug}
+                                courseId={course._id}
+                                name={course.name}
+                                credits={course.credits}
+                                year={course.year}
+                                semester={course.semester}
+                            />
+                        </TableCell>
                     </TableRow>
                 ))}
             </TableBody>
