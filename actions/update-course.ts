@@ -10,7 +10,7 @@ interface updateCourseProps {
     credits?: number;
     year?: number;
     semester?: number;
-    value?: number | undefined;
+    value?: number | null;
 }
 
 export const updateCourse = async ({
@@ -48,6 +48,7 @@ export const updateCourse = async ({
                     }
                 ])
                 .select();
+            console.log("RES_DATA:", data);
 
             if (error?.message) {
                 return error?.message;
@@ -58,19 +59,11 @@ export const updateCourse = async ({
             const { data, error } = await supabase
                 .from('course')
                 .update({
-                    course_id: courseId,
-                    user_id: userId,
-                    degree_id: degreeId,
-                    slug: slug,
-                    name: name,
-                    credits: credits,
                     gpa: value,
-                    year: year,
-                    semester: semester,
-                    isSelected: true
                 })
                 .eq('course_id', courseId)
                 .select();
+            console.log("RES_DATA:", data);
 
             if (error?.message) {
                 return error?.message;

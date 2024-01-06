@@ -1,7 +1,6 @@
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableFooter,
     TableHead,
@@ -10,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import GradeSelect from "./grade-select";
 import { auth } from "@clerk/nextjs";
+import { supabase } from "@/lib/supabase";
 
 interface CourseTableProps {
     courses: {
@@ -25,17 +25,31 @@ interface CourseTableProps {
     slug: string;
 }
 
-const CourseTable = ({
+const CourseTable = async ({
     courses,
     degreeId,
     slug,
 }: CourseTableProps) => {
     const { userId } = auth();
-    console.log(degreeId);
-    
+
+    const fetchCoursesFromDb = async () => {
+        const { data, error } = await supabase
+            .from('course')
+            .select('course_id, gpa')
+            .match({ degree_id: degreeId, user_id: userId})
+
+        if (error) {
+            console.error('ERROR_FETCHING_GPA_FROM_DB:', error);
+            return [];
+        }
+        
+        return data || [];
+    };
+
+    const coursesFromDb = await fetchCoursesFromDb();
+
     return (
         <Table>
-            <TableCaption className="-mt-1 py-2 bg-slate-200/40">Your academic performance</TableCaption>
             <TableHeader>
                 <TableRow className="w-full">
                     <TableHead className="w-[20%]">Code</TableHead>
@@ -44,25 +58,48 @@ const CourseTable = ({
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {courses.map((course) => (
-                    <TableRow key={course._id}>
-                        <TableCell className="font-medium">{course.courseCode}</TableCell>
-                        <TableCell colSpan={2}>{course.name}</TableCell>
-                        <TableCell className="text-right">
-                            <GradeSelect
-                                userId={userId}
-                                degreeId={degreeId}
-                                slug={slug}
-                                courseId={course._id}
-                                name={course.name}
-                                credits={course.credits}
-                                year={course.year}
-                                semester={course.semester}
-                            />
-                        </TableCell>
-                    </TableRow>
-                ))}
+                {courses.map((course) => {
+                    const matchingCourseFromDb = coursesFromDb.find((courseFromDb) => courseFromDb.course_id === course._id);
+
+                    return (
+                        <TableRow key={course._id}>
+                            <TableCell className="font-medium">{course.courseCode}</TableCell>
+                            <TableCell colSpan={2}>{course.name}</TableCell>
+                            <TableCell className="text-right">
+                                {matchingCourseFromDb ? (
+                                    <>
+                                    <p className="hidden">{matchingCourseFromDb.course_id}</p>
+                                    <GradeSelect
+                                        userId={userId}
+                                        degreeId={degreeId}
+                                        slug={slug}
+                                        courseId={course._id}
+                                        name={course.name}
+                                        credits={course.credits}
+                                        year={course.year}
+                                        semester={course.semester}
+                                        valueFromDb={matchingCourseFromDb?.gpa}
+                                    />
+                                    </>
+                                ) : (
+                                    <GradeSelect
+                                        userId={userId}
+                                        degreeId={degreeId}
+                                        slug={slug}
+                                        courseId={course._id}
+                                        name={course.name}
+                                        credits={course.credits}
+                                        year={course.year}
+                                        semester={course.semester}
+                                        valueFromDb={null}
+                                    />
+                                )}
+                            </TableCell>
+                        </TableRow>
+                    );
+                })}
             </TableBody>
+
             <TableFooter>
                 <TableRow>
                     <TableCell colSpan={3} className="text-[#666]">Semester's GPA</TableCell>

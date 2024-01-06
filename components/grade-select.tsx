@@ -23,6 +23,7 @@ interface GradeSelectProps {
     credits: number;
     year: number;
     semester: number;
+    valueFromDb: number | null;
 }
 
 const GradeSelect = ({
@@ -34,55 +35,69 @@ const GradeSelect = ({
     credits,
     year,
     semester,
+    valueFromDb
 }: GradeSelectProps) => {
     const { toast } = useToast();
-    const [value, setValue] = useState('');
+
+    const [value, setValue] = useState<number | null>(valueFromDb);
+    const [initialized, setInitialized] = useState(false);
     
     const handleValueChange = async () => {
         try {
-            const response = await updateCourse({
-                userId,
-                degreeId,
-                slug,
-                courseId,
-                name,
-                credits,
-                year,
-                semester,
-                value: parseFloat(value),
-            })
-            console.log("RES:", JSON.stringify(response));
-            
-            if(response === null ) {
-                toast({
-                    variant: 'success',
-                    title: "Successfully updated :)",
-                });
-            } else {
-                toast({
-                    variant: 'destructive',
-                    title: "Something went wrong :(",
-                });
+            if (initialized) {
+                const response = await updateCourse({
+                    userId,
+                    degreeId,
+                    slug,
+                    courseId,
+                    name,
+                    credits,
+                    year,
+                    semester,
+                    value: typeof value === 'number' ? value : null,
+                })
+                console.log("RES:", JSON.stringify(response));
+                
+                if(response === null ) {
+                    toast({
+                        variant: 'success',
+                        title: "Successfully updated :)",
+                    });
+                } else {
+                    toast({
+                        variant: 'destructive',
+                        title: "Something went wrong :(",
+                    });
+                }
             }
-
         } catch (error) {
             console.error("GRADE_VALUE_INTERT_ERROR:", error);
         }
     }
 
+    console.log("VALUE", value);
+
     useEffect(() => {
-        handleValueChange();
+        if (initialized) {
+            handleValueChange();                // Set initialized to true after the initial render
+        } else {
+            setInitialized(true);               // check its not the initial render
+        }
     }, [value]);
 
+    const handleSelectValueChange = (selectedValue: string) => {
+        setValue(parseFloat(selectedValue) || null);
+    };
+
     return (
-        <Select value={value} onValueChange={setValue}>
+        <Select value={value !== null ? value.toString() : ''} onValueChange={handleSelectValueChange}>
             <SelectTrigger className="w-full text-left bg-white/60">
                 <SelectValue placeholder="Select grade" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Grades</SelectLabel>
-                    {/* <SelectItem value="4">A+</SelectItem> */}
+                    <SelectItem value={`''`}>Not selected</SelectItem>
                     <SelectItem value="4">A+ / A</SelectItem>
                     <SelectItem value="3.7">A-</SelectItem>
                     <SelectItem value="3.3">B+</SelectItem>

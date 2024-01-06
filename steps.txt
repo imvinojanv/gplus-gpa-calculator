@@ -73,3 +73,4 @@
 -   Create checkAvailabile action function to check the courseId or degreeId available on the database
 -   Create the updateCourse action function to intert and update the data to Supabase
 -   Successfully update the data with toast notification
+-   Fetch the course_id and gpa for the degree and Set the value to the GradeSelect component
