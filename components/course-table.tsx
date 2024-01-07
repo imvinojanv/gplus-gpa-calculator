@@ -1,3 +1,5 @@
+import { auth } from "@clerk/nextjs";
+
 import {
     Table,
     TableBody,
@@ -8,8 +10,8 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import GradeSelect from "./grade-select";
-import { auth } from "@clerk/nextjs";
 import { supabase } from "@/lib/supabase";
+import { calculateGPA } from "@/actions/calculate-gpa";
 
 interface CourseTableProps {
     courses: {
@@ -23,20 +25,29 @@ interface CourseTableProps {
     }[];
     degreeId: string;
     slug: string;
+    year: number;
+    semester: number;
 }
 
 const CourseTable = async ({
     courses,
     degreeId,
     slug,
+    year,
+    semester
 }: CourseTableProps) => {
     const { userId } = auth();
 
     const fetchCoursesFromDb = async () => {
         const { data, error } = await supabase
             .from('course')
-            .select('course_id, gpa')
-            .match({ degree_id: degreeId, user_id: userId})
+            .select('course_id, gpa, credits')
+            .match({ 
+                degree_id: degreeId, 
+                user_id: userId,
+                year: year,
+                semester: semester
+            });
 
         if (error) {
             console.error('ERROR_FETCHING_GPA_FROM_DB:', error);
@@ -47,6 +58,9 @@ const CourseTable = async ({
     };
 
     const coursesFromDb = await fetchCoursesFromDb();
+
+    const gpaResults = calculateGPA(coursesFromDb);
+    // console.log("GPA:", gpaResults);
 
     return (
         <Table>
@@ -102,8 +116,8 @@ const CourseTable = async ({
 
             <TableFooter>
                 <TableRow>
-                    <TableCell colSpan={3} className="text-[#666]">Semester's GPA</TableCell>
-                    <TableCell className="text-right font-bold">3.00</TableCell>
+                    <TableCell colSpan={3} className="max-md:text-sm text-muted-foreground">Semester's GPA</TableCell>
+                    <TableCell className="md:text-lg text-muted-foreground text-right font-bold">{gpaResults}</TableCell>
                 </TableRow>
             </TableFooter>
         </Table>

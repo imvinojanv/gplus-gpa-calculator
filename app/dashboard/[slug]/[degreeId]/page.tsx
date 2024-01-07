@@ -32,16 +32,6 @@ const DegreePage = async ({
     semester: 2
   })
 
-  // console.log("DATA:", coursesForSemiOne, coursesForSemiTwo);
-
-  // const { toast } = useToast();
-  // const onSubmit = () => {
-  //   toast({
-  //     variant: 'success',
-  //     title: "You are successfully create todo.",
-  //   });
-  // }
-
   return (
     <div className="overflow-y-auto">
       <h2 className="text-2xl md:text-3xl font-bold text-color-black py-6 md:py-8 px-4 md:px-10">
@@ -53,7 +43,13 @@ const DegreePage = async ({
             <div className="mt-6 mb-4 md:mb-6">
               <h2 className="text-color-violet text-lg font-medium">Semester 1</h2>
               <div className="mt-2 border border-slate-400/50 rounded-lg bg-white/50">
-                <CourseTable courses={coursesForSemiOne} degreeId={params.degreeId} slug={params.slug} />
+                <CourseTable 
+                  courses={coursesForSemiOne} 
+                  degreeId={params.degreeId} 
+                  slug={params.slug} 
+                  year={currentYear}
+                  semester={1}
+                />
               </div>
             </div>
           )}
@@ -62,7 +58,13 @@ const DegreePage = async ({
             <div className={cn("mt-6 mb-4 md:mb-6")}>
               <h2 className="text-color-violet text-lg font-medium">Semester 2</h2>
               <div className="mt-2 border border-slate-400/50 rounded-lg bg-white/50">
-                <CourseTable courses={coursesForSemiTwo} degreeId={params.degreeId} slug={params.slug} />
+                <CourseTable 
+                  courses={coursesForSemiTwo} 
+                  degreeId={params.degreeId} 
+                  slug={params.slug}
+                  year={currentYear} 
+                  semester={2}
+                />
               </div>
             </div>
           )}
