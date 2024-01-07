@@ -56,7 +56,6 @@ const GradeSelect = ({
                     semester,
                     value: typeof value === 'number' ? value : null,
                 })
-                console.log("RES:", JSON.stringify(response));
                 
                 if(response === null ) {
                     toast({
@@ -74,8 +73,6 @@ const GradeSelect = ({
             console.error("GRADE_VALUE_INTERT_ERROR:", error);
         }
     }
-
-    console.log("VALUE", value);
 
     useEffect(() => {
         if (initialized) {

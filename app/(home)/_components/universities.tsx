@@ -41,7 +41,7 @@ const Universities = ({
         }, { skipNull: true, skipEmptyString: true });
     
         router.push(url, { scroll: false });
-        router.refresh();
+        // router.refresh();
     }
 
     return (

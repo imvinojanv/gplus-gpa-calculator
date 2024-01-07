@@ -117,7 +117,7 @@ const CourseTable = async ({
             <TableFooter>
                 <TableRow>
                     <TableCell colSpan={3} className="max-md:text-sm text-muted-foreground">Semester's GPA</TableCell>
-                    <TableCell className="md:text-lg text-muted-foreground text-right font-bold">{gpaResults}</TableCell>
+                    <TableCell className="md:text-lg text-muted-foreground text-right font-bold">{gpaResults.toFixed(2)}</TableCell>
                 </TableRow>
             </TableFooter>
         </Table>

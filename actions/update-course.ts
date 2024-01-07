@@ -1,5 +1,4 @@
 import { supabase } from "@/lib/supabase";
-import { checkAvailable } from "./check-available";
 
 interface updateCourseProps {
     courseId: string;
@@ -25,12 +24,14 @@ export const updateCourse = async ({
     value,
 }: updateCourseProps) => {
     try {
-        const isAvailable = await checkAvailable({
-            db:'course', 
-            id: courseId
-        }) 
+        // Check if the user has already updated the course
+        const { data } = await supabase
+            .from('course')
+            .select('course_id')
+            .eq('course_id', courseId)
 
-        if (!isAvailable) {
+        // If it's not, create a new one
+        if (data?.length === 0) {
             const { data, error } = await supabase
                 .from('course')
                 .insert([
@@ -48,22 +49,25 @@ export const updateCourse = async ({
                     }
                 ])
                 .select();
-            console.log("RES_DATA:", data);
+            console.log("RES_COURSE:", data);
 
             if (error?.message) {
                 return error?.message;
             } 
             return null;
         } 
-        else {
+        else {                                          // If it's exist, update the course
             const { data, error } = await supabase
                 .from('course')
                 .update({
                     gpa: value,
+                    updated_at: new Date()
                 })
-                .eq('course_id', courseId)
+                .match({
+                    course_id: courseId,
+                    user_id: userId,
+                })
                 .select();
-            console.log("RES_DATA:", data);
 
             if (error?.message) {
                 return error?.message;
@@ -72,7 +76,7 @@ export const updateCourse = async ({
         }
         
     } catch (error) {
-        console.error("[GRADE_VALUE_UPDATE_ERROR]", error);
+        console.error("[COURSE_UPDATE_ERROR_SUPABASE]:", error);
         return error;
     }
 }

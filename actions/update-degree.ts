@@ -52,7 +52,7 @@ export const updateDegree = async ({
             }
             return null;
         }
-        console.log("Already registered the user!");
+        // console.log("Already registered the user!");
         
     } catch (error) {
         console.error("[DEGREE_UPDATE_ERROR_SUPABASE]:", error);
