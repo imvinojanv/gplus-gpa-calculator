@@ -1,10 +1,12 @@
-import { getCourses, getDegrees } from "@/sanity/actions";
+import { getCourses } from "@/sanity/actions";
+import Image from "next/image";
+import { currentUser } from "@clerk/nextjs";
 
 import { cn } from "@/lib/utils";
+import { updateDegree } from "@/actions/update-degree";
 import CourseTable from "@/components/course-table";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import Image from "next/image";
 
 const DegreePage = async ({
   params,
@@ -16,21 +18,32 @@ const DegreePage = async ({
   const { slug, degreeId } = params;
   const { year: currentYear } = searchParams;
 
-  // const hasCoursesForSemesterTwo = courses.some((course: any) => course.semester === 1);
+  const user = await currentUser();
 
   // Fetch the courses for Semester 1
   const coursesForSemiOne = await getCourses({
-    degreeId: params.degreeId,
+    degreeId: degreeId,
     year: currentYear,
     semester: 1
-  })
+  });
 
   // Fetch the courses for Semester 2
   const coursesForSemiTwo = await getCourses({
-    degreeId: params.degreeId,
+    degreeId: degreeId,
     year: currentYear,
     semester: 2
-  })
+  });
+
+  try {
+    const res_create_degree = await updateDegree({
+      degreeId: degreeId,
+      userId: user?.id,
+      slug: slug,
+      firstname: user?.firstName
+    })
+  } catch (error) {
+    console.error("DEGREE_CREATE_ERROR:", error);
+  }
 
   return (
     <div className="overflow-y-auto">
@@ -45,8 +58,8 @@ const DegreePage = async ({
               <div className="mt-2 border border-slate-400/50 rounded-lg bg-white/50">
                 <CourseTable 
                   courses={coursesForSemiOne} 
-                  degreeId={params.degreeId} 
-                  slug={params.slug} 
+                  degreeId={degreeId} 
+                  slug={slug} 
                   year={currentYear}
                   semester={1}
                 />
@@ -60,8 +73,8 @@ const DegreePage = async ({
               <div className="mt-2 border border-slate-400/50 rounded-lg bg-white/50">
                 <CourseTable 
                   courses={coursesForSemiTwo} 
-                  degreeId={params.degreeId} 
-                  slug={params.slug}
+                  degreeId={degreeId} 
+                  slug={slug}
                   year={currentYear} 
                   semester={2}
                 />
