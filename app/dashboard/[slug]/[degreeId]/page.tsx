@@ -1,12 +1,14 @@
 import { getCourses } from "@/sanity/actions";
 import Image from "next/image";
-import { currentUser } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs";
 
 import { cn } from "@/lib/utils";
 import { updateDegree } from "@/actions/update-degree";
 import CourseTable from "@/components/course-table";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/lib/supabase";
+import { calculateGPA } from "@/actions/calculate-gpa";
 
 const DegreePage = async ({
   params,
@@ -19,23 +21,60 @@ const DegreePage = async ({
   const { year: currentYear } = searchParams;
 
   const user = await currentUser();
+  const { userId } = auth();
 
-  let gpaForSemiOne: number;
-  let gpaForSemiTwo: number;
-
-  // Fetch the courses for Semester 1
+  /////////// Fetch the courses from SANITY ////////////
   const coursesForSemiOne = await getCourses({
     degreeId: degreeId,
     year: currentYear,
     semester: 1
   });
 
-  // Fetch the courses for Semester 2
   const coursesForSemiTwo = await getCourses({
     degreeId: degreeId,
     year: currentYear,
     semester: 2
   });
+  //////////?????????????????????????????????///////////
+
+  ////////// Fetch the courses from SUPABASE ///////////
+  const { data: coursesFromDbForSemiOne, error:errorFromDbSemiOne } = await supabase
+    .from('course')
+    .select('course_id, gpa, credits')
+    .match({ 
+        degree_id: degreeId, 
+        user_id: user?.id,
+        year: currentYear,
+        semester: 1
+    });
+
+  const { data: coursesFromDbForSemiTwo, error:errorFromDbSemiTwo } = await supabase
+    .from('course')
+    .select('course_id, gpa, credits')
+    .match({ 
+        degree_id: degreeId, 
+        user_id: user?.id,
+        year: currentYear,
+        semester: 2
+    });
+  
+  if (errorFromDbSemiOne) {
+    console.error('ERROR_FETCHING_COURSES_FROM_DB:', errorFromDbSemiOne);
+  }
+  if (errorFromDbSemiTwo) {
+    console.error('ERROR_FETCHING_COURSES_FROM_DB:', errorFromDbSemiTwo);
+  }
+  ///////////???????????????????????????///////////
+
+  //////// Calculate GPA for the semester /////////
+  // const gpaForSemiOne = calculateGPA(coursesFromDbForSemiOne as any | null);
+  // const gpaForSemiTwo = calculateGPA(coursesFromDbForSemiTwo as any | null);
+  // console.log("gpaResults:", gpaForSemiOne, "-", gpaForSemiTwo);
+
+  // if (gpaForSemiOne !== 0 && gpaForSemiTwo !== 0) {
+  //   const gpaForYear = (gpaForSemiOne + gpaForSemiTwo) / 2;
+  //   console.log("Total GPA:", gpaForYear,);
+  // }
 
   try {
     const res_create_degree = await updateDegree({
@@ -47,23 +86,6 @@ const DegreePage = async ({
   } catch (error) {
     console.error("DEGREE_CREATE_ERROR:", error);
   }
-
-  const handleSemesterGPAChange = (semester: number, gpa: number) => {
-    if (semester === 1) {
-      gpaForSemiOne = gpa;
-    } else if (semester === 2) {
-      gpaForSemiTwo = gpa;
-    }
-    // console.log("gpaForSemiOne:", gpaForSemiOne);
-    // console.log("gpaForSemiTwo:", gpaForSemiTwo);
-
-    if (gpaForSemiOne !== undefined && gpaForSemiTwo !== undefined) {
-      const overallGPA = (gpaForSemiOne + gpaForSemiTwo) / 2;
-      console.log('Overall GPA2:', overallGPA.toFixed(2));
-    } else if (gpaForSemiOne !== undefined && gpaForSemiTwo === undefined) {
-      console.log('Overall GPA1:', gpaForSemiOne.toFixed(2));
-    }
-  };
 
   return (
     <div className="overflow-y-auto">
@@ -78,11 +100,11 @@ const DegreePage = async ({
               <div className="mt-2 border border-slate-400/50 rounded-lg bg-white/50">
                 <CourseTable 
                   courses={coursesForSemiOne} 
+                  coursesFromDb={coursesFromDbForSemiOne}
                   degreeId={degreeId} 
-                  slug={slug} 
-                  year={currentYear}
-                  semester={1}
-                  onSemesterGPAChange={handleSemesterGPAChange}
+                  slug={slug}
+                  userId={userId}
+                  gpa={0}
                 />
               </div>
             </div>
@@ -94,11 +116,11 @@ const DegreePage = async ({
               <div className="mt-2 border border-slate-400/50 rounded-lg bg-white/50">
                 <CourseTable 
                   courses={coursesForSemiTwo} 
+                  coursesFromDb={coursesFromDbForSemiTwo}
                   degreeId={degreeId} 
                   slug={slug}
-                  year={currentYear} 
-                  semester={2}
-                  onSemesterGPAChange={handleSemesterGPAChange}
+                  userId={userId}
+                  gpa={0}
                 />
               </div>
             </div>

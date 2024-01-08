@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs";
+"use client"
 
 import {
     Table,
@@ -23,47 +23,25 @@ interface CourseTableProps {
         semester: number;
         courseType: string;
     }[];
+    coursesFromDb: {
+        course_id: string;
+        gpa: number;
+        credits: number;
+    }[] | null;
     degreeId: string;
     slug: string;
-    year: number;
-    semester: number;
-    onSemesterGPAChange: (semester: number, gpa: number) => void;
+    userId: string | null;
+    gpa: number;
 }
 
-const CourseTable = async ({
+const CourseTable = ({
     courses,
+    coursesFromDb,
     degreeId,
     slug,
-    year,
-    semester,
-    onSemesterGPAChange
+    userId,
+    gpa
 }: CourseTableProps) => {
-    const { userId } = auth();
-
-    const fetchCoursesFromDb = async () => {
-        const { data, error } = await supabase
-            .from('course')
-            .select('course_id, gpa, credits')
-            .match({ 
-                degree_id: degreeId, 
-                user_id: userId,
-                year: year,
-                semester: semester
-            });
-
-        if (error) {
-            console.error('ERROR_FETCHING_GPA_FROM_DB:', error);
-            return [];
-        }
-        
-        return data || [];
-    };
-
-    const coursesFromDb = await fetchCoursesFromDb();
-
-    const gpaResults = calculateGPA(coursesFromDb);
-    
-    onSemesterGPAChange(semester, gpaResults);
 
     return (
         <Table>
@@ -76,51 +54,51 @@ const CourseTable = async ({
             </TableHeader>
             <TableBody>
                 {courses.map((course) => {
-                    const matchingCourseFromDb = coursesFromDb.find((courseFromDb) => courseFromDb.course_id === course._id);
+                    if (coursesFromDb !== null) {
+                        const matchingCourseFromDb = coursesFromDb.find((courseFromDb) => courseFromDb.course_id === course._id);
+                        
+                        return (
+                            <TableRow key={course._id}>
+                                <TableCell className="font-medium">{course.courseCode}</TableCell>
+                                <TableCell colSpan={2}>{course.name}</TableCell>
+                                <TableCell className="text-right">
+                                    {matchingCourseFromDb ? (
+                                        <GradeSelect
+                                            userId={userId}
+                                            degreeId={degreeId}
+                                            slug={slug}
+                                            courseId={course._id}
+                                            name={course.name}
+                                            credits={course.credits}
+                                            year={course.year}
+                                            semester={course.semester}
+                                            valueFromDb={matchingCourseFromDb?.gpa}
+                                        />
+                                    ) : (
+                                        <GradeSelect
+                                            userId={userId}
+                                            degreeId={degreeId}
+                                            slug={slug}
+                                            courseId={course._id}
+                                            name={course.name}
+                                            credits={course.credits}
+                                            year={course.year}
+                                            semester={course.semester}
+                                            valueFromDb={null}
+                                        />
+                                    )}
+                                </TableCell>
+                            </TableRow>
+                        );
+                    }
 
-                    return (
-                        <TableRow key={course._id}>
-                            <TableCell className="font-medium">{course.courseCode}</TableCell>
-                            <TableCell colSpan={2}>{course.name}</TableCell>
-                            <TableCell className="text-right">
-                                {matchingCourseFromDb ? (
-                                    <>
-                                    <p className="">{matchingCourseFromDb?.gpa}</p>
-                                    <GradeSelect
-                                        userId={userId}
-                                        degreeId={degreeId}
-                                        slug={slug}
-                                        courseId={course._id}
-                                        name={course.name}
-                                        credits={course.credits}
-                                        year={course.year}
-                                        semester={course.semester}
-                                        valueFromDb={matchingCourseFromDb?.gpa}
-                                    />
-                                    </>
-                                ) : (
-                                    <GradeSelect
-                                        userId={userId}
-                                        degreeId={degreeId}
-                                        slug={slug}
-                                        courseId={course._id}
-                                        name={course.name}
-                                        credits={course.credits}
-                                        year={course.year}
-                                        semester={course.semester}
-                                        valueFromDb={null}
-                                    />
-                                )}
-                            </TableCell>
-                        </TableRow>
-                    );
                 })}
             </TableBody>
 
             <TableFooter>
                 <TableRow>
                     <TableCell colSpan={3} className="max-md:text-sm text-muted-foreground">Semester's GPA</TableCell>
-                    <TableCell className="md:text-lg text-muted-foreground text-right font-bold">{gpaResults.toFixed(2)}</TableCell>
+                    <TableCell className="md:text-lg text-muted-foreground text-right font-bold">{gpa.toFixed(2)}</TableCell>
                 </TableRow>
             </TableFooter>
         </Table>
