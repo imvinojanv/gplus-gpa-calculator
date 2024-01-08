@@ -15,5 +15,5 @@ export const calculateGPA = (courses: CalculateGpaProps[]): number => {
 
     const gpa = totalGradePoints / totalCredits;
 
-    return isNaN(gpa) ? 0 : parseFloat(gpa.toFixed(2)); // Return 0 if there's a division by zero
+    return isNaN(gpa) ? 0 : gpa; // Return 0 if there's a division by zero
 }

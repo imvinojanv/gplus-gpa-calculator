@@ -27,6 +27,7 @@ interface CourseTableProps {
     slug: string;
     year: number;
     semester: number;
+    onSemesterGPAChange: (semester: number, gpa: number) => void;
 }
 
 const CourseTable = async ({
@@ -34,7 +35,8 @@ const CourseTable = async ({
     degreeId,
     slug,
     year,
-    semester
+    semester,
+    onSemesterGPAChange
 }: CourseTableProps) => {
     const { userId } = auth();
 
@@ -60,7 +62,8 @@ const CourseTable = async ({
     const coursesFromDb = await fetchCoursesFromDb();
 
     const gpaResults = calculateGPA(coursesFromDb);
-    // console.log("GPA:", gpaResults);
+    
+    onSemesterGPAChange(semester, gpaResults);
 
     return (
         <Table>
@@ -82,7 +85,7 @@ const CourseTable = async ({
                             <TableCell className="text-right">
                                 {matchingCourseFromDb ? (
                                     <>
-                                    <p className="hidden">{matchingCourseFromDb.course_id}</p>
+                                    <p className="">{matchingCourseFromDb?.gpa}</p>
                                     <GradeSelect
                                         userId={userId}
                                         degreeId={degreeId}

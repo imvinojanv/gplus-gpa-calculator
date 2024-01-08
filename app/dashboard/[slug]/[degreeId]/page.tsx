@@ -20,6 +20,9 @@ const DegreePage = async ({
 
   const user = await currentUser();
 
+  let gpaForSemiOne: number;
+  let gpaForSemiTwo: number;
+
   // Fetch the courses for Semester 1
   const coursesForSemiOne = await getCourses({
     degreeId: degreeId,
@@ -45,6 +48,23 @@ const DegreePage = async ({
     console.error("DEGREE_CREATE_ERROR:", error);
   }
 
+  const handleSemesterGPAChange = (semester: number, gpa: number) => {
+    if (semester === 1) {
+      gpaForSemiOne = gpa;
+    } else if (semester === 2) {
+      gpaForSemiTwo = gpa;
+    }
+    // console.log("gpaForSemiOne:", gpaForSemiOne);
+    // console.log("gpaForSemiTwo:", gpaForSemiTwo);
+
+    if (gpaForSemiOne !== undefined && gpaForSemiTwo !== undefined) {
+      const overallGPA = (gpaForSemiOne + gpaForSemiTwo) / 2;
+      console.log('Overall GPA2:', overallGPA.toFixed(2));
+    } else if (gpaForSemiOne !== undefined && gpaForSemiTwo === undefined) {
+      console.log('Overall GPA1:', gpaForSemiOne.toFixed(2));
+    }
+  };
+
   return (
     <div className="overflow-y-auto">
       <h2 className="text-2xl md:text-3xl font-bold text-color-black py-6 md:py-8 px-4 md:px-10">
@@ -62,6 +82,7 @@ const DegreePage = async ({
                   slug={slug} 
                   year={currentYear}
                   semester={1}
+                  onSemesterGPAChange={handleSemesterGPAChange}
                 />
               </div>
             </div>
@@ -77,6 +98,7 @@ const DegreePage = async ({
                   slug={slug}
                   year={currentYear} 
                   semester={2}
+                  onSemesterGPAChange={handleSemesterGPAChange}
                 />
               </div>
             </div>
