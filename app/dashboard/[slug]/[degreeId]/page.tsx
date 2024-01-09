@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { supabase } from "@/lib/supabase";
 import { calculateGPA } from "@/actions/calculate-gpa";
 import { createDegree, updateDegree } from "@/actions/update-degree";
+import { calculateAverageGPA } from "@/actions/calculate-average-gpa";
 
 import CourseTable from "@/components/course-table";
 import { Button } from "@/components/ui/button";
@@ -60,10 +61,10 @@ const DegreePage = async ({
     });
 
   if (errorFromDbSemiOne) {
-    console.error('ERROR_FETCHING_COURSES_FROM_DB:', errorFromDbSemiOne);
+    console.error('[ERROR_FETCHING_COURSES_FROM_DB]:', errorFromDbSemiOne);
   }
   if (errorFromDbSemiTwo) {
-    console.error('ERROR_FETCHING_COURSES_FROM_DB:', errorFromDbSemiTwo);
+    console.error('[ERROR_FETCHING_COURSES_FROM_DB]:', errorFromDbSemiTwo);
   }
   ///////////???????????????????????????///////////
 
@@ -76,7 +77,7 @@ const DegreePage = async ({
       firstname: user?.firstName
     })
   } catch (error) {
-    console.error("DEGREE_CREATE_ERROR:", error);
+    console.error("[DEGREE_CREATE_ERROR]:", error);
   }
   ///////////???????????????????????????///////////
 
@@ -85,44 +86,61 @@ const DegreePage = async ({
   const gpaForSemiTwo = calculateGPA(coursesFromDbForSemiTwo as any | null);
   
   const gpaForYear = (gpaForSemiTwo === 0 && gpaForSemiOne === 0) ? null : (gpaForSemiTwo === 0 ? gpaForSemiOne : (gpaForSemiOne + gpaForSemiTwo) / 2);
-  console.log("gpaForYear:", gpaForYear, "- gpaForSemiOne:", gpaForSemiOne);
+  // console.log("gpaForYear:", gpaForYear, "- gpaForSemiOne:", gpaForSemiOne);
   
   //////// Update the Year GPA to SUPABASE /////////
-  switch (currentYear.toString()) {
-    case '1':
-      await updateDegree({
-        degreeId: degreeId,
-        userId: user?.id,
-        year1GPA: gpaForYear
-      });
-      break;
-    case '2':
-      await updateDegree({
-        degreeId: degreeId,
-        userId: user?.id,
-        year2GPA: gpaForYear
-      });
-      break;
-    case '3':
-      await updateDegree({
-        degreeId: degreeId,
-        userId: user?.id,
-        year3GPA: gpaForYear
-      });
-      break;
-    case '4':
-      await updateDegree({
-        degreeId: degreeId,
-        userId: user?.id,
-        year4GPA: gpaForYear
-      });
-  }
+  // switch (currentYear.toString()) {
+  //   case '1':
+  //     await updateDegree({
+  //       degreeId: degreeId,
+  //       userId: user?.id,
+  //       year1GPA: gpaForYear
+  //     });
+  //     break;
+  //   case '2':
+  //     await updateDegree({
+  //       degreeId: degreeId,
+  //       userId: user?.id,
+  //       year2GPA: gpaForYear
+  //     });
+  //     break;
+  //   case '3':
+  //     await updateDegree({
+  //       degreeId: degreeId,
+  //       userId: user?.id,
+  //       year3GPA: gpaForYear
+  //     });
+  //     break;
+  //   case '4':
+  //     await updateDegree({
+  //       degreeId: degreeId,
+  //       userId: user?.id,
+  //       year4GPA: gpaForYear
+  //     });
+  // }
   ///////////???????????????????????????///////////
+
+  ////////// Fetch YEARLY GPA from SUPABASE ///////////
+  const { data: yearGPA, error:errorForYearGPA } = await supabase
+    .from('degree')
+    .select('degree_id, year1_gpa, year2_gpa, year3_gpa, year4_gpa')
+    .match({ 
+        degree_id: degreeId, 
+        user_id: user?.id,
+    });
+
+  if (errorForYearGPA) {
+    console.error('[ERROR_FETCHING_GPAS_FROM_DB]', errorForYearGPA);
+  }
+  
+  ///////////// Calculate Overall GPA //////////////
+  const overallGPA = calculateAverageGPA(yearGPA as any | null);
+  
 
   return (
     <div className="overflow-y-auto">
       <h2 className="text-2xl md:text-3xl font-bold text-color-black py-6 md:py-8 px-4 md:px-10">
-        Overall GPA : <span className="font-black text-gradient">3.79</span>
+        Overall GPA : <span className="font-black text-gradient">{overallGPA.toFixed(2)}</span>
       </h2>
       <div className="px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
