@@ -1,3 +1,4 @@
+import { unstable_noStore } from "next/cache";
 import { groq } from "next-sanity";
 
 import { client } from "./lib/client";
@@ -16,6 +17,7 @@ interface GetCoursesParams {
 }
 
 export const getUniversities = async () => {
+    unstable_noStore();
     try {
         const universities = await client.fetch(
             groq`*[_type == "university"]{
@@ -40,6 +42,7 @@ export const getUniversities = async () => {
 }
 
 export const getDegrees = async (params: GetDegreesParams) => {
+    unstable_noStore();
     const { slug, type } = params;
 
     try {
