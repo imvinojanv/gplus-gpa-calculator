@@ -3,12 +3,13 @@ import Image from "next/image";
 import { auth, currentUser } from "@clerk/nextjs";
 
 import { cn } from "@/lib/utils";
-import { updateDegree } from "@/actions/update-degree";
+import { supabase } from "@/lib/supabase";
+import { calculateGPA } from "@/actions/calculate-gpa";
+import { createDegree, updateDegree } from "@/actions/update-degree";
+
 import CourseTable from "@/components/course-table";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { supabase } from "@/lib/supabase";
-import { calculateGPA } from "@/actions/calculate-gpa";
 
 const DegreePage = async ({
   params,
@@ -57,7 +58,7 @@ const DegreePage = async ({
         year: currentYear,
         semester: 2
     });
-  
+
   if (errorFromDbSemiOne) {
     console.error('ERROR_FETCHING_COURSES_FROM_DB:', errorFromDbSemiOne);
   }
@@ -66,18 +67,9 @@ const DegreePage = async ({
   }
   ///////////???????????????????????????///////////
 
-  //////// Calculate GPA for the semester /////////
-  // const gpaForSemiOne = calculateGPA(coursesFromDbForSemiOne as any | null);
-  // const gpaForSemiTwo = calculateGPA(coursesFromDbForSemiTwo as any | null);
-  // console.log("gpaResults:", gpaForSemiOne, "-", gpaForSemiTwo);
-
-  // if (gpaForSemiOne !== 0 && gpaForSemiTwo !== 0) {
-  //   const gpaForYear = (gpaForSemiOne + gpaForSemiTwo) / 2;
-  //   console.log("Total GPA:", gpaForYear,);
-  // }
-
+  //////// Create the degree if a new user logged in /////////
   try {
-    const res_create_degree = await updateDegree({
+    const res_create_degree = await createDegree({
       degreeId: degreeId,
       userId: user?.id,
       slug: slug,
@@ -86,6 +78,46 @@ const DegreePage = async ({
   } catch (error) {
     console.error("DEGREE_CREATE_ERROR:", error);
   }
+  ///////////???????????????????????????///////////
+
+  //////// Calculate GPA for the SEMESTER /////////
+  const gpaForSemiOne = calculateGPA(coursesFromDbForSemiOne as any | null);
+  const gpaForSemiTwo = calculateGPA(coursesFromDbForSemiTwo as any | null);
+  
+  const gpaForYear = (gpaForSemiTwo === 0 && gpaForSemiOne === 0) ? null : (gpaForSemiTwo === 0 ? gpaForSemiOne : (gpaForSemiOne + gpaForSemiTwo) / 2);
+  console.log("gpaForYear:", gpaForYear, "- gpaForSemiOne:", gpaForSemiOne);
+  
+  //////// Update the Year GPA to SUPABASE /////////
+  switch (currentYear.toString()) {
+    case '1':
+      await updateDegree({
+        degreeId: degreeId,
+        userId: user?.id,
+        year1GPA: gpaForYear
+      });
+      break;
+    case '2':
+      await updateDegree({
+        degreeId: degreeId,
+        userId: user?.id,
+        year2GPA: gpaForYear
+      });
+      break;
+    case '3':
+      await updateDegree({
+        degreeId: degreeId,
+        userId: user?.id,
+        year3GPA: gpaForYear
+      });
+      break;
+    case '4':
+      await updateDegree({
+        degreeId: degreeId,
+        userId: user?.id,
+        year4GPA: gpaForYear
+      });
+  }
+  ///////////???????????????????????????///////////
 
   return (
     <div className="overflow-y-auto">
@@ -104,7 +136,7 @@ const DegreePage = async ({
                   degreeId={degreeId} 
                   slug={slug}
                   userId={userId}
-                  gpa={0}
+                  gpa={gpaForSemiOne}
                 />
               </div>
             </div>
@@ -120,7 +152,7 @@ const DegreePage = async ({
                   degreeId={degreeId} 
                   slug={slug}
                   userId={userId}
-                  gpa={0}
+                  gpa={gpaForSemiTwo}
                 />
               </div>
             </div>
