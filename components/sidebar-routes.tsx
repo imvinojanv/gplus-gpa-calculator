@@ -9,6 +9,7 @@ import {
 } from "next/navigation";
 
 import { cn } from "@/lib/utils";
+import { supabase } from "@/lib/supabase";
 import { Badge } from "@/components/ui/badge"
 
 const navRoutes = [
@@ -30,32 +31,60 @@ const navRoutes = [
     }
 ]
 
-const SidebarRoutes = () => {
-    const [year, setYear] = useState('1')
+const SidebarRoutes = ({
+    userId
+}: { userId: string | undefined }) => {
+    const [year, setYear] = useState('1');
+    const [gpaFromDb, setGpaFromDb] = useState<any[]>([]);
 
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
+    
+    // Separate the degreeId from the pathname
+    const degreeId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
     const selectedYear = searchParams.get("year");
-    const currentTitle = searchParams.get("title");
 
     useEffect(() => {
         const url = qs.stringifyUrl({
             url: pathname,
             query: {
-                title: currentTitle,
                 year: year,
             }
         }, { skipNull: true, skipEmptyString: true });
     
         router.push(url);
         // router.refresh();
-    }, [year, currentTitle, router, pathname])
+    }, [year, router, pathname]);
+
+    const fetchGPAFromDb = async () => {
+        try {
+            const { data, error } = await supabase
+                .from('degree')
+                .select('year1_gpa, year2_gpa, year3_gpa, year4_gpa')
+                .match({ 
+                    degree_id: degreeId, 
+                    user_id: userId,
+                });
+    
+            if (error) {
+                console.error('[ERROR_SIDEBAR]:', error);
+                return null;
+            }
+            setGpaFromDb(data as any)
+        } catch (error) {
+            console.error('[ERROR_FETCHING_GPA_FOR_SIDEBAR]:', error);
+        }
+    };
+
+    useEffect(() => {
+      fetchGPAFromDb();
+    }, []);
 
     return (
         <div className="flex flex-col space-y-3">
-            {navRoutes.map((route) => (
+            {navRoutes.map((route, index) => (
                 <div
                     key={route.path}
                     onClick={() => setYear(route.path)}
@@ -68,10 +97,14 @@ const SidebarRoutes = () => {
                         {route.label}
                     </div>
                     <Badge
-                        variant='gradient'
-                        className="text-sm font-semibold py-0.5 px-3 border ml-2 tracking-wider"
+                        variant={gpaFromDb.length > 0 && gpaFromDb[0][`year${index + 1}_gpa`] !== null ? 'gradient' : 'outline'}
+                        className="text-sm py-0.5 px-3 border ml-2 tracking-wider"
                     >
-                        3.78
+                        {gpaFromDb.length > 0 ? (
+                            gpaFromDb[0][`year${index + 1}_gpa`] !== null
+                                ? gpaFromDb[0][`year${index + 1}_gpa`].toFixed(2)
+                                : '0.00'
+                        ) : '0.00'}
                     </Badge>
                 </div>
             ))}

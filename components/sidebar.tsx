@@ -1,12 +1,12 @@
+import Link from "next/link";
 import Image from "next/image";
 import { UserButton, currentUser } from "@clerk/nextjs";
 
 import SidebarRoutes from "@/components/sidebar-routes";
-import Link from "next/link";
 
 const Sidebar = async () => {
     const user = await currentUser();
-
+    
     return (
         <div className="h-full flex flex-col overflow-y-auto bg-white justify-between">
             <div>
@@ -21,7 +21,7 @@ const Sidebar = async () => {
                     </Link>
                 </div>
                 <div className="w-full px-3 mt-10">
-                    <SidebarRoutes />
+                    <SidebarRoutes userId={user?.id} />
                 </div>
             </div>
             <div className="flex items-center px-4 py-6 gap-3">
