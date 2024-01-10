@@ -10,8 +10,6 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import GradeSelect from "./grade-select";
-import { supabase } from "@/lib/supabase";
-import { calculateGPA } from "@/actions/calculate-gpa";
 
 interface CourseTableProps {
     courses: {
@@ -98,7 +96,9 @@ const CourseTable = ({
             <TableFooter>
                 <TableRow>
                     <TableCell colSpan={3} className="max-md:text-sm text-muted-foreground">Semester's GPA</TableCell>
-                    <TableCell className="md:text-lg text-muted-foreground text-right font-bold">{gpa.toFixed(2)}</TableCell>
+                    <TableCell className="md:text-lg text-muted-foreground text-right font-bold">
+                        {gpa.toFixed(2)}
+                    </TableCell>
                 </TableRow>
             </TableFooter>
         </Table>

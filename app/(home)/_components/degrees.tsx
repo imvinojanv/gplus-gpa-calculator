@@ -31,7 +31,7 @@ const Degrees = ({
             >
                 {degrees && degrees.map((degree: any) => (
                     <Link
-                        href={`/dashboard/${slug}/${degree._id}`}
+                        href={`/dashboard/${slug}/${degree._id}?year=1`}
                         key={degree._id}
                         className='w-full group px-6 py-5 rounded-lg flex flex-row justify-between cursor-pointer items-end md:items-start transition-all degree'
                     >

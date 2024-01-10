@@ -85,8 +85,7 @@ export const updateDegree = async ({
                 user_id: userId,
             })
             .select();
-        
-        console.log("[DEGREE_UPDATE_SUPABASE]:", data);
+        // console.log("[DEGREE_UPDATE_SUPABASE]:", data);
         
     } catch (error) {
         console.error("[DEGREE_UPDATE_ERROR_SUPABASE]:", error);
