@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import {
     Select,
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import { updateCourse } from "@/actions/update-course";
+import { supabase } from "@/lib/supabase";
 
 interface GradeSelectProps {
     userId: string | null;
@@ -38,6 +40,7 @@ const GradeSelect = ({
     valueFromDb
 }: GradeSelectProps) => {
     const { toast } = useToast();
+    const router = useRouter();
 
     const [value, setValue] = useState<number | null>(valueFromDb);
     const [initialized, setInitialized] = useState(false);
@@ -68,6 +71,7 @@ const GradeSelect = ({
                         title: "Something went wrong :(",
                     });
                 }
+                // router.refresh();
             }
         } catch (error) {
             console.error("GRADE_VALUE_INTERT_ERROR:", error);
@@ -81,6 +85,31 @@ const GradeSelect = ({
             setInitialized(true);               // check its not the initial render
         }
     }, [value]);
+
+    // Realtime Implementation
+    useEffect(() => {
+        const channels = supabase.channel('course-grade-channel')
+            .on(
+                'postgres_changes',
+                { 
+                    event: '*', 
+                    schema: 'public', 
+                    table: 'course'
+                },
+                (payload) => {
+                    // Validate the user
+                    if ([payload.new].length > 0 && payload.new.user_id === userId && payload.new.course_id ===courseId && payload.new.degree_id === degreeId) {
+                        // console.log("UserId is sameee...");
+                        router.refresh();
+                    }
+                }
+            )
+            .subscribe();
+
+        return () => {
+            channels.unsubscribe();
+        };
+    }, [supabase, value]);
 
     const handleSelectValueChange = (selectedValue: string) => {
         setValue(parseFloat(selectedValue) || null);

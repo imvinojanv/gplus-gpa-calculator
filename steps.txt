@@ -74,3 +74,5 @@
 -   Create the updateCourse action function to intert and update the data to Supabase
 -   Successfully update the data with toast notification
 -   Fetch the course_id and gpa for the degree and Set the value to the GradeSelect component
+
+-   Implement the real-time features with supabase (SidebarRoutes, GradeSelect, DegreePage)

@@ -40,34 +40,23 @@ const SidebarRoutes = ({
     const pathname = usePathname();
     const router = useRouter();
     const searchParams = useSearchParams();
-    
+
     // Separate the degreeId from the pathname
     const degreeId = pathname.substring(pathname.lastIndexOf("/") + 1);
 
     const selectedYear = searchParams.get("year");
 
-    useEffect(() => {
-        const url = qs.stringifyUrl({
-            url: pathname,
-            query: {
-                year: year,
-            }
-        }, { skipNull: true, skipEmptyString: true });
-    
-        router.push(url);
-        // router.refresh();
-    }, [year, router, pathname]);
-
     const fetchGPAFromDb = async () => {
         try {
             const { data, error } = await supabase
                 .from('degree')
-                .select('year1_gpa, year2_gpa, year3_gpa, year4_gpa')
-                .match({ 
-                    degree_id: degreeId, 
+                .select('*')
+                .match({
+                    degree_id: degreeId,
                     user_id: userId,
                 });
-    
+            // console.log(data);
+
             if (error) {
                 console.error('[ERROR_SIDEBAR]:', error);
                 return null;
@@ -79,8 +68,43 @@ const SidebarRoutes = ({
     };
 
     useEffect(() => {
-      fetchGPAFromDb();
-    }, []);
+        const url = qs.stringifyUrl({
+            url: pathname,
+            query: {
+                year: year,
+            }
+        }, { skipNull: true, skipEmptyString: true });
+
+        router.push(url);
+        // router.refresh();
+
+        fetchGPAFromDb();
+    }, [year, router, pathname]);
+
+    // Realtime Implementation
+    useEffect(() => {
+        const channels = supabase.channel('custom-all-channel')
+            .on(
+                'postgres_changes',
+                { 
+                    event: '*', 
+                    schema: 'public', 
+                    table: 'degree'
+                },
+                (payload) => {
+                    // console.log('Change receiveddd!', JSON.stringify(payload.new));
+                    if ([payload.new].length > 0 && payload.new.user_id === userId && payload.new.degree_id === degreeId) {
+                        // console.log("UserId is sameee...");
+                        setGpaFromDb([payload.new])
+                    }
+                }
+            )
+            .subscribe();
+
+        return () => {
+            channels.unsubscribe();
+        };
+    }, [supabase, gpaFromDb, setGpaFromDb]);
 
     return (
         <div className="flex flex-col space-y-3">
