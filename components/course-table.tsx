@@ -10,6 +10,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import GradeSelect from "./grade-select";
+import { Badge } from "./ui/badge";
 
 interface CourseTableProps {
     courses: {
@@ -58,7 +59,14 @@ const CourseTable = ({
                         return (
                             <TableRow key={course._id}>
                                 <TableCell className="font-medium">{course.courseCode}</TableCell>
-                                <TableCell colSpan={2}>{course.name}</TableCell>
+                                <TableCell colSpan={2}>
+                                    {course.name}
+                                    {course.courseType === 'optional' && (
+                                        <Badge variant="courseType" className="ml-2">
+                                            Opt
+                                        </Badge>
+                                    )}
+                                    </TableCell>
                                 <TableCell className="text-right">
                                     {matchingCourseFromDb ? (
                                         <GradeSelect
