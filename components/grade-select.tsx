@@ -60,15 +60,15 @@ const GradeSelect = ({
                     value: typeof value === 'number' ? value : null,
                 })
                 
-                if(response === null ) {
+                if(response !== null ) {
                     toast({
-                        variant: 'success',
-                        title: "Successfully updated :)",
-                    });
-                } else {
-                    toast({
+                        title: "⚠️ Something went wrong 👎",
                         variant: 'destructive',
-                        title: "Something went wrong :(",
+                        description: (
+                            <code className="text-white">
+                                {response as string | undefined}
+                            </code>
+                        ),
                     });
                 }
                 // router.refresh();

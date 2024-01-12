@@ -27,7 +27,7 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: "border bg-background text-color-black font-normal border-gradient",
+        default: "border bg-background text-color-black font-normal",
         destructive: "group border-[#FF0000] text-[#FF0000] bg-[#ffe5e5]",
         success: "group border-[#4BB543] text-[#4BB543] bg-[#e3fbe2]"
       },
@@ -104,7 +104,7 @@ const ToastDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Description
     ref={ref}
-    className={cn("text-sm opacity-90", className)}
+    className={cn("text-sm opacity-90 w-[350px] mt-2 rounded-md bg-slate-950 p-4", className)}
     {...props}
   />
 ))
