@@ -89,11 +89,12 @@ const SidebarRoutes = ({
                 { 
                     event: '*', 
                     schema: 'public', 
-                    table: 'degree'
+                    table: 'degree',
+                    filter: `user_id=eq.${userId}`,
                 },
                 (payload) => {
                     // console.log('Change receiveddd!', JSON.stringify(payload.new));
-                    if ([payload.new].length > 0 && payload.new.user_id === userId && payload.new.degree_id === degreeId) {
+                    if ([payload.new].length > 0 && payload.new.degree_id === degreeId) {
                         // console.log("UserId is sameee...");
                         setGpaFromDb([payload.new])
                     }

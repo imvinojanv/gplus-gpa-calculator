@@ -33,12 +33,13 @@ const OverallGPA = ({
                 { 
                     event: '*', 
                     schema: 'public', 
-                    table: 'degree'
+                    table: 'degree',
+                    filter: `user_id=eq.${userId}`,
                 },
                 (payload) => {
                     // console.log('Change received!', JSON.stringify(payload.new));
                     // Validate the user and degree
-                    if ([payload.new].length > 0 && payload.new.user_id === userId && payload.new.degree_id === degreeId) {
+                    if ([payload.new].length > 0 && payload.new.degree_id === degreeId) {
                         setOverallGPA(calculateAverageGPA([payload.new] as any | null))
                     }
                 }
