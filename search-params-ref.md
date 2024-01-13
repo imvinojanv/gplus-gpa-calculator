@@ -124,3 +124,24 @@
         return `${pathname}${queryString}`;
     };
     `
+
+## Method 4:
+
+const [year, setYear] = useState('1');
+
+useEffect(() => {
+    <!-- Normally -->
+    window.history.pushState(
+        null,
+        "",
+        `?year=${year}`
+    );
+
+    <!-- For Next.js -->
+    router.push(
+        `?year=${year}`, {
+            scroll: false
+        }
+    );
+
+}, [year]);
