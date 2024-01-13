@@ -16,7 +16,7 @@ const badgeVariants = cva(
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "border-none font-normal text-muted-foreground",
         gradient: "border-none font-semibold text-white bg-gradient",
-        duration: "bg-white/70 border-none text-[#7E7F86]",
+        duration: "bg-[#8643DC]/10 border-none text-[#8643DC]",
         courseType: "text-[#FF59C1] border-[#FF59C1] bg-[#FF59C1]/10 px-1 py-0.25 font-bold"
       },
     },

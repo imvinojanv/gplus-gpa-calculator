@@ -150,6 +150,18 @@ nav .signup {
         display: none;
     }
 
+    .bg-gradient-1 {
+        right: -10;
+        background-color: rgba(255, 130, 205, 0.5);
+    }
+
+    .bg-gradient-2 {
+        bottom: -30%; 
+        left: 50%;
+        background: linear-gradient(96deg, rgba(155, 255, 165, 0.70) -4.68%, rgba(174, 211, 255, 0.70) 44.68%, rgba(201, 212, 239, 0.70) 70.79%, rgba(215, 152, 225, 0.70) 95.84%); 
+        filter: blur(125px);
+    }
+
     .hero-heading {
         margin-top: 120px;
     }

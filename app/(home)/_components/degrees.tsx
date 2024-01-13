@@ -40,7 +40,7 @@ const Degrees = ({
                             <p className='text-color-gray text-sm font-normal line-clamp-1'>{degree.degree}</p>
                         </div>
                         <Badge variant="duration" className='text-xs font-medium'>
-                            {degree.duration}&nbsp;<span className='font-normal'>Years</span>
+                            {degree.duration} Years
                         </Badge>
                     </Link>
                 ))}

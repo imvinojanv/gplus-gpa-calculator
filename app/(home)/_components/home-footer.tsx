@@ -11,16 +11,16 @@ const HomeFooter = () => {
                         <p className="text-[#7E7F86] font-normal text-sm">Feel free to reach out me and explore more. I'm just a message away!</p>
                     </div>
                     <div className="flex flex-row gap-5 md:gap-4">
-                        <a href="" className="grayscale hover:grayscale-0 transition-all duration-200 opacity-85 hover:opacity-100" target="_blank">
+                        <a href="mailto:vinojan@dechorizon.com" className="hover:grayscale grayscale-0 transition-all duration-200 hover:opacity-85">
                             <Image src="/email.svg" alt="email" width={40} height={40} />
                         </a>
-                        <a href="" className="grayscale hover:grayscale-0 transition-all duration-200 opacity-85 hover:opacity-100" target="_blank">
+                        <a href="https://www.linkedin.com/in/imvinojanv/" className="hover:grayscale grayscale-0 transition-all duration-200 hover:opacity-85" target="_blank">
                             <Image src="/linkedin.svg" alt="linkedin" width={40} height={40} />
                         </a>
-                        <a href="" className="grayscale hover:grayscale-0 transition-all duration-200 opacity-85 hover:opacity-100" target="_blank">
+                        <a href="https://github.com/imvinojanv" className="hover:grayscale grayscale-0 transition-all duration-200 hover:opacity-85" target="_blank">
                             <Image src="/github.svg" alt="github" width={40} height={40} />
                         </a>
-                        <a href="" className="grayscale hover:grayscale-0 transition-all duration-200 opacity-85 hover:opacity-100" target="_blank">
+                        <a href="https://www.facebook.com/imvinojanv/" className="hover:grayscale grayscale-0 transition-all duration-200 hover:opacity-85" target="_blank">
                             <Image src="/facebook.svg" alt="facebook" width={40} height={40} />
                         </a>
                     </div>
@@ -32,7 +32,7 @@ const HomeFooter = () => {
                     <div className="font-medium">
                         © 2024,&nbsp;
                         <a 
-                            href="" 
+                            href="http://www.vinojan.online" 
                             target="_blank" 
                             className="font-bold underline-offset-3 hover:underline transition"
                         >
@@ -41,11 +41,11 @@ const HomeFooter = () => {
                         All rights reserved
                     </div>
                     <a 
-                        href=""
+                        href="https://github.com/imvinojanv/gplus-gpa-calculator"
                         target="_blank"
                         className="font-normal underline-offset-3 hover:underline transition"
                     >
-                        see the recent update on <span className="font-medium">GitHub</span>
+                        collaborate on <span className="font-medium">GitHub</span>
                     </a>
                 </div>
             </div>
