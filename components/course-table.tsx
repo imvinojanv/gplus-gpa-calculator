@@ -103,7 +103,7 @@ const CourseTable = ({
 
             <TableFooter>
                 <TableRow>
-                    <TableCell colSpan={3} className="max-md:text-sm text-muted-foreground">Semester's GPA</TableCell>
+                    <TableCell colSpan={3} className="max-md:text-sm text-muted-foreground">Semester&apos;s GPA</TableCell>
                     <TableCell className="md:text-lg text-muted-foreground text-right font-bold">
                         {gpa.toFixed(2)}
                     </TableCell>

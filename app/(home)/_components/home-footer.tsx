@@ -7,8 +7,8 @@ const HomeFooter = () => {
             <div className="mx-auto max-w-screen-xl flex flex-col justify-center items-center gap-12 md:gap-16">
                 <div className="w-full flex flex-col md:flex-row md:justify-between items-start md:items-end gap-6">
                     <div className="flex flex-col items-start gap-1 tracking-[0.18px]">
-                        <h1 className="text-color-black font-medium text-[26px] md:text-3xl">Let's Connect with Vinojan!</h1>
-                        <p className="text-[#7E7F86] font-normal text-sm">Feel free to reach out me and explore more. I'm just a message away!</p>
+                        <h1 className="text-color-black font-medium text-[26px] md:text-3xl">Let&apos;s Connect with Vinojan!</h1>
+                        <p className="text-[#7E7F86] font-normal text-sm">Feel free to reach out me and explore more. I&apos;m just a message away!</p>
                     </div>
                     <div className="flex flex-row gap-5 md:gap-4">
                         <a href="mailto:vinojan@dechorizon.com" className="hover:grayscale grayscale-0 transition-all duration-200 hover:opacity-85">
