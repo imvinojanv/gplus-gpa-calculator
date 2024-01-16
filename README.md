@@ -20,7 +20,7 @@
 
 <br />
 
-## Getting Started
+## Getting Started 🎉
 To get a local copy up and running on your machine, follow these simple steps.
 
 ### Prerequisites
@@ -64,7 +64,23 @@ Contact me for the production keys and other credentials.
 
 <p align="right"><a href="#readme-top">back to top ☝️</a></p>
 
-## Contribution
+## Schema Structure 🛢️
+It's sample schema model structure for sanity and supabase DB
+
+### Sanity Schema
+| Schema Model | Field Name (Type) | Relation |
+| --- | --- | --- |
+| **university** | - `name` (string)<br>- `slug` (string)<br>- `logo` (image) | `of` reference to 'degree' schema |
+| **degree** | - `name` (string)<br>- `degree` (string)<br>- `faculty` (string)<br>- `duration` (number) | `of` reference to 'course' schema |
+| **course** | - `name` (string)<br>- `courseCode` (string)<br>- `credits` (number)<br>- `year` (number)<br>- `semester` (number)<br>- `courseType` (string) | `to` reference to 'degree' schema |
+
+### Supabase DB Schema
+| Schema Model | Field Name (Type) |
+| --- | --- |
+| **degree** | - `user_id` (string)<br>- `degree_id` (string)<br>- `slug` (string)<br>- `year1_gpa` (number)<br>- `year2_gpa` (number)<br>- `year3_gpa` (number)<br>- `year4_gpa` (number)<br>- `created_at` (date)<br>- `updated_at` (date) |
+| **course** | - `course_id` (string)<br>- `user_id` (string)<br>- `degree_id` (string)<br>- `slug` (string)<br>- `name` (string)<br>- `credits` (number)<br>- `gpa` (number)<br>- `year` (number)<br>- `semester` (number)<br>- `isSelected` (boolean)<br>- `created_at` (date)<br>- `updated_at` (date) |
+
+## Contribution ✨
 Contributions are what makes the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star!⭐ Thanks again!
@@ -98,7 +114,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 <p align="right"><a href="#readme-top">back to top ☝️</a></p>
 
 <!-- CONTACT -->
-### Contact 
+### Contact 💌
 <b>Vinojan Veerapathirathasan</b>
 
 Email: [vinojan@dechorizon.com](mailto:vinojan@dechorizon.com)<br />
@@ -107,7 +123,7 @@ LinkedIn: [@imvinojanv](https://www.linkedin.com/in/imvinojanv)
 <p align="right"><a href="#readme-top">back to top ☝️</a></p>
 
 <!-- LICENSE -->
-### License
+### License ©️
 MIT © [imvinojanv](https://github.com/imvinojanv)
 
 <!-- BUILD WITH URLs -->
