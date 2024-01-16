@@ -80,6 +80,8 @@ It's sample schema model structure for sanity and supabase DB
 | **degree** | - `user_id` (string)<br>- `degree_id` (string)<br>- `slug` (string)<br>- `year1_gpa` (number)<br>- `year2_gpa` (number)<br>- `year3_gpa` (number)<br>- `year4_gpa` (number)<br>- `created_at` (date)<br>- `updated_at` (date) |
 | **course** | - `course_id` (string)<br>- `user_id` (string)<br>- `degree_id` (string)<br>- `slug` (string)<br>- `name` (string)<br>- `credits` (number)<br>- `gpa` (number)<br>- `year` (number)<br>- `semester` (number)<br>- `isSelected` (boolean)<br>- `created_at` (date)<br>- `updated_at` (date) |
 
+<p align="right"><a href="#readme-top">back to top ☝️</a></p>
+
 ## Contribution ✨
 Contributions are what makes the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
