@@ -94,7 +94,7 @@ const SidebarRoutes = ({
                 },
                 (payload) => {
                     // console.log('Change receiveddd!', JSON.stringify(payload.new));
-                    if ([payload.new].length > 0 && payload.new.degree_id === degreeId) {
+                    if ([payload.new].length > 0) {
                         // console.log("UserId is sameee...");
                         setGpaFromDb([payload.new])
                     }
