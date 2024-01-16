@@ -1,5 +1,10 @@
+import type { Metadata } from 'next'
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+    title: 'Auth - G Plus: Academic Performance Tracker'
+}
 
 const AuthLayout = ({
     children,

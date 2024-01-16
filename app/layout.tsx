@@ -9,16 +9,20 @@ import { Toaster } from '@/components/ui/toaster'
 const redHatDisplay = Red_Hat_Display({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'G-Plus GPA Calculator',
-  description: 'The GPA Calculator Application for the University Students',
+  title: 'G Plus: Academic Performance Tracker',
+  description: 'The Academic Performance Tracker Application for the undergraduates in Sri Lanka',
   other: {
-    'theme-color': '#fff',
+    'theme-color': '#ffffff',
     'color-scheme': 'light only',
-    "twitter:image": '',
+    "keywords": "GPA, Academic Performance Tracker, undergraduates in Sri Lanka, GPA calculator, University",
+    "twitter:image": 'https://ik.imagekit.io/vinojan/Personal/gplus-landing-page.png',
     "twitter:card": "summary_large_image",
-    "og:url": "",
-    "og:image": '',
+    "og:title": "G Plus: Academic Performance Tracker",
+    "og:description": "The Academic Performance Tracker Application for the undergraduates in Sri Lanka",
+    "og:url": "https://gplus.gov.lk",
+    "og:image": 'https://ik.imagekit.io/vinojan/Personal/gplus-launch-poster.jpg',
     "og:type": "website",
+    "og:site_name": "G Plus: Academic Performance Tracker"
   }
 }
 
