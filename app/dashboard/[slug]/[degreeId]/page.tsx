@@ -25,47 +25,20 @@ const DegreePage = async ({
   const { userId } = auth();
 
   /////////// Fetch the courses from SANITY ////////////
-  const coursesForSemiOne = await getCourses({
-    degreeId: degreeId,
-    year: currentYear,
-    semester: 1
-  });
-
-  const coursesForSemiTwo = await getCourses({
-    degreeId: degreeId,
-    year: currentYear,
-    semester: 2
-  });
+  const [coursesForSemiOne, coursesForSemiTwo] = await Promise.all([
+    getCourses({ degreeId: degreeId, year: currentYear, semester: 1 }),
+    getCourses({ degreeId: degreeId, year: currentYear, semester: 2 })
+  ]);
   //////////?????????????????????????????????///////////
 
   ////////// Fetch the courses from SUPABASE ///////////
-  const { data: coursesFromDbForSemiOne, error:errorFromDbSemiOne } = await supabase
-    .from('course')
-    .select('course_id, gpa, credits')
-    .match({ 
-        degree_id: degreeId, 
-        user_id: user?.id,
-        year: currentYear,
-        semester: 1
-    });
-  // console.log("coursesFromDbForSemiOne: ", coursesFromDbForSemiOne);
+  const [dataForSemiOne, dataForSemiTwo] = await Promise.all([
+    supabase.from('course').select('course_id, gpa, credits').match({ degree_id: degreeId, user_id: user?.id, year: currentYear, semester: 1 }),
+    supabase.from('course').select('course_id, gpa, credits').match({ degree_id: degreeId, user_id: user?.id, year: currentYear, semester: 2 })
+  ]);
 
-  const { data: coursesFromDbForSemiTwo, error:errorFromDbSemiTwo } = await supabase
-    .from('course')
-    .select('course_id, gpa, credits')
-    .match({ 
-        degree_id: degreeId, 
-        user_id: user?.id,
-        year: currentYear,
-        semester: 2
-    });
-
-  if (errorFromDbSemiOne) {
-    console.error('[ERROR_FETCHING_COURSES_FROM_DB]:', errorFromDbSemiOne);
-  }
-  if (errorFromDbSemiTwo) {
-    console.error('[ERROR_FETCHING_COURSES_FROM_DB]:', errorFromDbSemiTwo);
-  }
+  const coursesFromDbForSemiOne = dataForSemiOne?.data || [];
+  const coursesFromDbForSemiTwo = dataForSemiTwo?.data || [];
   ///////////???????????????????????????///////////
 
   //////// Create the degree if a new user logged in /////////
@@ -86,7 +59,6 @@ const DegreePage = async ({
   const gpaForSemiTwo = calculateGPA(coursesFromDbForSemiTwo as any | null);
   
   const gpaForYear = (gpaForSemiTwo === 0 && gpaForSemiOne === 0) ? null : (gpaForSemiTwo === 0 ? gpaForSemiOne : (gpaForSemiOne + gpaForSemiTwo) / 2);
-  // console.log("gpaForYear:", gpaForYear, "- gpaForSemiOne:", gpaForSemiOne);
   
   //////// Update the Year GPA to SUPABASE /////////
   if (currentYear) {

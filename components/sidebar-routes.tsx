@@ -75,7 +75,7 @@ const SidebarRoutes = ({
             }
         }, { skipNull: true, skipEmptyString: true });
 
-        router.push(url);
+        router.replace(url);
         // router.refresh();
 
         fetchGPAFromDb();

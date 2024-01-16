@@ -60,6 +60,7 @@ export const updateCourse = async ({
             const { data, error } = await supabase
                 .from('course')
                 .update({
+                    credits: credits,
                     gpa: value,
                     updated_at: new Date()
                 })

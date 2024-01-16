@@ -76,3 +76,5 @@
 -   Fetch the course_id and gpa for the degree and Set the value to the GradeSelect component
 
 -   Implement the real-time features with supabase (SidebarRoutes, GradeSelect, DegreePage)
+
+-   Add Loading pages

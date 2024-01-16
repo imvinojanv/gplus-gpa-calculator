@@ -1,17 +1,15 @@
 [
-    {
-        "degrees": [
-            {
-                "_id": "fd2179e9-813d-4cb4-9371-3ef239106bcf",
-                "name": "Software Engineering",
-                "degree": "B.Sc (Hons) in Software Engineering",
-                "duration": 4,
-                "courses": [
-                    {
-                        "_id": "5b344ea0-5e78-46cb-9a1a-3a617860469d"
-                    }
-                ]
-            }
-        ]
-    }
+  {
+    "course_id": "0c2979b2-d5d7-44ec-9089-e57e72104ce8",
+    "user_id": "user_2ZztIeuj2NDDAMgB4zqsmWbyzwk",
+    "degree_id": "942b9304-178a-463c-a33c-f033ba1b886e",
+    "slug": "sample",
+    "name": "Sample Course for year 1",
+    "credits": 2,
+    "gpa": 3.3,
+    "year": 1,
+    "semester": 1,
+    "isSelected": true,
+    "created_at": "2024-01-05T12:39:52.777336+00:00"
+  }
 ]

@@ -121,8 +121,8 @@ const GradeSelect = ({
         <Select value={value !== null ? value.toString() : ''} onValueChange={handleSelectValueChange}>
             <SelectTrigger className={cn(
                 "w-full text-left bg-white/60",
-                value?.toString() === '4' && "bg-[#00AF8D]/10 border-[#00AF8D]",
-                (value?.toString() === '3.7' || value?.toString() === '3.3') && "bg-[#0B98C5]/10 border-[#0B98C5]",
+                value?.toString() === '4' && "bg-[#17dcb5]/10 border-[#17dcb5]",
+                (value?.toString() === '3.7' || value?.toString() === '3.3') && "bg-[#1eb7eb]/10 border-[#1eb7eb]",
                 (value?.toString() === '3' || value?.toString() === '2.7') && "bg-[#C438EF]/10 border-[#C438EF]",
                 (value?.toString() === '2.3' || value?.toString() === '2') && "bg-[#FD853A]/10 border-[#FD853A]",
                 (value?.toString() === '1.7' || value?.toString() === '1.3' || value?.toString() === '1' || value?.toString() === '0') && "bg-[#FF3333]/10 border-[#FF3333]",
