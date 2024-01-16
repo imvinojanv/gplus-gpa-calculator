@@ -100,7 +100,7 @@ const GradeSelect = ({
                 },
                 (payload) => {
                     // Validate the user
-                    if ([payload.new].length > 0 && payload.new.course_id ===courseId && payload.new.degree_id === degreeId) {
+                    if ([payload.new].length > 0) {
                         // console.log("UserId is sameee...");
                         router.refresh();
                     }
