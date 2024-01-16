@@ -39,7 +39,7 @@ const OverallGPA = ({
                 (payload) => {
                     // console.log('Change received!', JSON.stringify(payload.new));
                     // Validate the user and degree
-                    if ([payload.new].length > 0 && payload.new.degree_id === degreeId) {
+                    if ([payload.new].length > 0) {
                         setOverallGPA(calculateAverageGPA([payload.new] as any | null))
                     }
                 }
