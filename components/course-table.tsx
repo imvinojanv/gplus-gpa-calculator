@@ -59,14 +59,14 @@ const CourseTable = ({
                         return (
                             <TableRow key={course._id}>
                                 <TableCell className="font-medium">{course.courseCode}</TableCell>
-                                <TableCell colSpan={2}>
+                                <TableCell colSpan={2} className="sm:text-[15px]">
                                     {course.name}
                                     {course.courseType === 'optional' && (
                                         <Badge variant="courseType" className="ml-2">
                                             Opt
                                         </Badge>
                                     )}
-                                    </TableCell>
+                                </TableCell>
                                 <TableCell className="text-right">
                                     {matchingCourseFromDb ? (
                                         <GradeSelect

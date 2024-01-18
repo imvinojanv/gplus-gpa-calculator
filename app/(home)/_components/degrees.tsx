@@ -33,14 +33,14 @@ const Degrees = ({
                     <Link
                         href={`/dashboard/${slug}/${degree._id}?year=1`}
                         key={degree._id}
-                        className='w-full group px-6 py-5 rounded-lg flex flex-row justify-between cursor-pointer items-end md:items-start transition-all degree'
+                        className='w-full group max-sm:px-3 max-sm:py-4 px-6 py-5 rounded-lg flex flex-row justify-between cursor-pointer items-end md:items-start transition-all degree'
                     >
                         <div className='flex flex-col items-start gap-1'>
                             <h3 className='text-color-black text-base font-medium line-clamp-1'>{degree.name}</h3>
                             <p className='text-color-gray text-sm font-normal line-clamp-1'>{degree.degree}</p>
                         </div>
                         <Badge variant="duration" className='text-xs font-medium'>
-                            {degree.duration} Years
+                            {degree.duration}&nbsp;Years
                         </Badge>
                     </Link>
                 ))}

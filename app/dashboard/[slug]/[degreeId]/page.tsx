@@ -112,7 +112,7 @@ const DegreePage = async ({
 
   return (
     <div className="overflow-y-auto">
-      <h2 className="text-2xl md:text-3xl font-bold text-color-black py-6 md:py-8 px-4 md:px-10">
+      <h2 className="text-[26px] md:text-3xl font-bold text-color-black py-6 md:py-8 px-4 md:px-10">
         Overall GPA : <span className="font-black text-gradient">
           {/* {overallGPA.toFixed(2)} */}
           <OverallGPA degreeData={yearGPA} degreeId={degreeId} userId={user?.id} />

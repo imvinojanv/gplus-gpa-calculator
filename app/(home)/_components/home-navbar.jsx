@@ -26,7 +26,7 @@ const HomeNavbar = async () => {
             ): (
                 <div className="flex items-center justify-center gap-4">
                     <Link href='sign-in'>
-                        <Button variant="transparent" className="bg-transparent text-color-gray hover:text-color-black transition-all text-md font-medium login">
+                        <Button variant="transparent" className="max-md:hidden bg-transparent text-color-gray hover:text-color-black transition-all text-md font-medium login">
                             Log in
                         </Button>
                     </Link>

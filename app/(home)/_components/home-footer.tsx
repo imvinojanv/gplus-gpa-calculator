@@ -11,16 +11,16 @@ const HomeFooter = () => {
                         <p className="text-[#7E7F86] font-normal text-sm">Feel free to reach out me and explore more. I&apos;m just a message away!</p>
                     </div>
                     <div className="flex flex-row gap-5 md:gap-4">
-                        <a href="mailto:vinojan@dechorizon.com" className="hover:grayscale grayscale-0 transition-all duration-200 hover:opacity-85">
+                        <a href="mailto:vinojan@dechorizon.com" className="grayscale hover:grayscale-0 transition-all duration-200 opacity-85 hover:opacity-100">
                             <Image src="/email.svg" alt="email" width={40} height={40} />
                         </a>
-                        <a href="https://www.linkedin.com/in/imvinojanv/" className="hover:grayscale grayscale-0 transition-all duration-200 hover:opacity-85" target="_blank">
+                        <a href="https://www.linkedin.com/in/imvinojanv/" className="grayscale hover:grayscale-0 transition-all duration-200 opacity-85 hover:opacity-100" target="_blank">
                             <Image src="/linkedin.svg" alt="linkedin" width={40} height={40} />
                         </a>
-                        <a href="https://github.com/imvinojanv" className="hover:grayscale grayscale-0 transition-all duration-200 hover:opacity-85" target="_blank">
+                        <a href="https://github.com/imvinojanv" className="grayscale hover:grayscale-0 transition-all duration-200 opacity-85 hover:opacity-100" target="_blank">
                             <Image src="/github.svg" alt="github" width={40} height={40} />
                         </a>
-                        <a href="https://www.facebook.com/imvinojanv/" className="hover:grayscale grayscale-0 transition-all duration-200 hover:opacity-85" target="_blank">
+                        <a href="https://www.facebook.com/imvinojanv/" className="grayscale hover:grayscale-0 transition-all duration-200 opacity-85 hover:opacity-100" target="_blank">
                             <Image src="/facebook.svg" alt="facebook" width={40} height={40} />
                         </a>
                     </div>
@@ -29,12 +29,12 @@ const HomeFooter = () => {
                 <Separator className="h-0.5 rounded-md mt-0 md:mt-4" />
 
                 <div className="-mt-4 w-full text-sm tracking-[0.18px] text-color-black flex flex-col md:flex-row justify-between items-center gap-2">
-                    <div className="font-medium">
+                    <div className="font-normal">
                         © 2024,&nbsp;
                         <a 
                             href="http://www.vinojan.online" 
                             target="_blank" 
-                            className="font-bold underline-offset-3 hover:underline transition"
+                            className="font-medium underline-offset-3 hover:underline transition"
                         >
                             imvinojanv
                         </a>.&nbsp;

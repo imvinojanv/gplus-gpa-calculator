@@ -144,8 +144,34 @@ nav .signup {
     padding-bottom: 48px;
 }
 
+@media screen and (max-width: 420px) {
+    .bg-gradient-1 {
+        right: -20;
+        background-color: rgba(255, 130, 205, 0.4);
+    }
+
+    .hero-heading {
+        margin-top: 100px;
+    }
+
+    .hero-heading h2 {
+        font-size: 18px;
+    }
+
+    .hero-heading h1 {
+        margin-top: 12px;
+        margin-bottom: 14px;
+        font-size: 32px;
+        padding: 0 16px;
+    }
+
+    .hero-heading h3 {
+        font-size: 14px;
+    }
+}
+
 /* Mobile Responsive */
-@media screen and (max-width: 768px) {
+@media (min-width: 420px) and (max-width: 768px) {
     .bg-elements {
         display: none;
     }
