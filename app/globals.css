@@ -134,6 +134,21 @@
   scrollbar-width: none; /* Firefox */
 }
 
+/* Hide the Clerk batch in Signin and Signup */
+.cl-internal-b3fm6y {
+  display: none !important;
+}
+
+/* Hide the Clerk logo from UserButton */
+.cl-internal-uyu30o {
+  display: none !important;
+}
+
+/* Auth box border */
+.cl-internal-17ydaof, .cl-userButton-popover {
+  border: 1px solid #e2e8f0;
+}
+
 * {
   box-sizing: border-box;
 }
