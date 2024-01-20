@@ -106,7 +106,8 @@ export const getCourses = async (params: GetCoursesParams) => {
                 credits,
                 year,
                 semester,
-                courseType
+                courseType,
+                _createdAt,
             }`
         );
         return courses;
