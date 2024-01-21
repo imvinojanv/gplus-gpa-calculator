@@ -24,8 +24,9 @@ const Degrees = ({
     return (
         <div>
             <div 
+                id="degree-scrollbar"
                 className={cn(
-                    'flex flex-col gap-2 md:gap-3 h-full md:h-[276px] border bg-white/30 rounded-xl p-2 md:overflow-y-auto md:no-scrollbar', 
+                    'flex flex-col gap-2 md:gap-3 h-full md:h-[276px] border bg-white/30 rounded-xl p-2 md:overflow-y-auto ', 
                     (degrees && degrees.length > 2) && "md:h-[410px]", 
                     !degrees && "border-none outline-dashed outline-1 outline-slate-400 outline-offset-1",
                     !hasUniversities && "hidden"
@@ -64,7 +65,7 @@ const Degrees = ({
                 )}
             </div>
             {degrees && (degrees.length > 3) && (
-                <p className='text-sm text-end text-slate-500 mt-2 md:mt-1 mr-3'>Scroll to more...</p>
+                <p className='max-sm:hidden text-sm text-end text-slate-500 mt-2 md:mt-1 mr-3'>Scroll to more...</p>
             )}
         </div>
     )
