@@ -57,6 +57,7 @@ export const getDegrees = async (params: GetDegreesParams) => {
                         name,
                         degree,
                         duration,
+                        faculty,
                         // courses[]->{
                         //     name,
                         // }
