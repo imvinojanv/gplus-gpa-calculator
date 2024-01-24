@@ -78,3 +78,8 @@
 -   Implement the real-time features with supabase (SidebarRoutes, GradeSelect, DegreePage)
 
 -   Add Loading pages
+
+-   Add vercel speed-insights (
+        `npm i @vercel/speed-insights`,
+        import { SpeedInsights } from "@vercel/speed-insights/next"
+    )
