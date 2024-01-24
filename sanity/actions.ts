@@ -57,6 +57,7 @@ export const getDegrees = async (params: GetDegreesParams) => {
                         name,
                         degree,
                         duration,
+                        faculty,
                         // courses[]->{
                         //     name,
                         // }
@@ -106,7 +107,8 @@ export const getCourses = async (params: GetCoursesParams) => {
                 credits,
                 year,
                 semester,
-                courseType
+                courseType,
+                _createdAt,
             }`
         );
         return courses;

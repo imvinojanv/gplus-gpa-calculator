@@ -21,6 +21,7 @@ interface CourseTableProps {
         year: number;
         semester: number;
         courseType: string;
+        _createdAt: Date;
     }[];
     coursesFromDb: {
         course_id: string;
@@ -42,6 +43,13 @@ const CourseTable = ({
     gpa
 }: CourseTableProps) => {
 
+    // Sort courses by _createdAt
+    const sortedCourses = [...courses].sort((a, b) => {
+        const dateA = new Date(a._createdAt);
+        const dateB = new Date(b._createdAt);
+        return dateA.getTime() - dateB.getTime();
+    });
+
     return (
         <Table>
             <TableHeader>
@@ -52,7 +60,7 @@ const CourseTable = ({
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {courses.map((course) => {
+                {sortedCourses.map((course) => {
                     if (coursesFromDb !== null) {
                         const matchingCourseFromDb = coursesFromDb.find((courseFromDb) => courseFromDb.course_id === course._id);
                         

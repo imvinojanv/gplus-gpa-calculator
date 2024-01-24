@@ -41,7 +41,7 @@ const HomePage = async ({ searchParams }: HomePageProps) => {
         <div className='w-full px-4 flex flex-col items-start university-degree-list'>
             <h2 className='text-color-black font-medium'>Select your degree</h2>
 
-            <div className='w-full mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 lg:gap-12'>
+            <div className='w-full mt-6 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-10'>
                 <Universities universities={universities} />
                 <Degrees 
                   degrees={degrees} 

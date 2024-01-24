@@ -28,7 +28,10 @@ export const updateCourse = async ({
         const { data } = await supabase
             .from('course')
             .select('course_id')
-            .eq('course_id', courseId)
+            .match({
+                course_id: courseId,
+                user_id: userId,
+            })
 
         // If it's not, create a new one
         if (data?.length === 0) {
